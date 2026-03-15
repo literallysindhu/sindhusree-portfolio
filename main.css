@@ -1,0 +1,246 @@
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-image: url("background.png");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  padding-top: 0px;
+  font-family: 'Inter', sans-serif;
+  color: #fff;
+  margin: 0;
+}
+
+/* Typography Overrides */
+h1, h2, h3, h4, h5 {
+  font-family: "DM Serif Text", serif;
+}
+
+.navbar {
+  background-color: #f259ab34 !important;
+  padding: 0.6rem 1rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  border-bottom: none;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.navbar-brand {
+  font-family: "Autour One", system-ui;
+  font-size: 24px;
+  font-weight: 700;
+  color: #fffbfc !important;
+}
+
+.navbar-toggler {
+  filter: invert(1);
+}
+
+.nav-pills .nav-link {
+  color: #fffbfc !important;
+  font-size: 15.625px;
+  padding: 8px 14px;
+  margin-right: 10px;
+  border-radius: 20px;
+  background-color: rgba(248, 143, 237, 0.2);
+  transition: all 0.3s ease;
+  font-family: "Inter", sans-serif;
+}
+
+.nav-pills .nav-link:hover, .nav-pills .nav-link.active {
+  background-color: rgba(255, 105, 180, 0.45);
+  color: #ffffff !important;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(255, 105, 180, 0.22);
+}
+
+.btn-pink {
+  background-color: rgba(255, 105, 180, 0.3);
+  color: white;
+  border: 1px solid rgba(255, 105, 180, 0.5);
+  transition: all 0.3s ease;
+  padding: 10px 20px;
+  border-radius: 30px;
+}
+
+.btn-pink:hover {
+  background-color: #f50076;
+  color: white;
+  transform: translateY(-2px);
+  border-color: transparent;
+}
+
+/* Sections */
+.hero-section {
+  min-height: 100vh;
+  padding-top: 100px;
+}
+
+.hero-section h1 {
+  font-weight: 400;
+  font-size: 64px;
+  color: white;
+  margin: 0;
+}
+
+.hero-section span {
+  font-family: "Autour One", system-ui;
+  font-weight: 400;
+  font-size: 54px;
+  color: #ffb6c1;
+}
+
+.hero-section u {
+  text-decoration-thickness: 3px;
+  text-underline-offset: 12px;
+  text-decoration-color: #ff69b4;
+}
+
+.hero-section p {
+  color: #FCF5EE;
+  font-size: 22px;
+  line-height: 1.6;
+}
+
+.section-title {
+  font-size: 48px;
+  margin-bottom: 20px;
+  text-align: center;
+  position: relative;
+  display: inline-block;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #fff;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  width: 50%;
+  height: 4px;
+  background: #ff69b4;
+  bottom: -5px;
+  left: 25%;
+  border-radius: 2px;
+}
+
+.section-bg {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+/* Glassmorphism Cards */
+.glass-card {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px 0 rgba(255, 105, 180, 0.2);
+  border: 1px solid rgba(255, 105, 180, 0.3);
+}
+
+.bg-pink {
+  background-color: #ff69b4 !important;
+}
+
+.text-pink {
+  color: #ffb6c1 !important;
+  font-weight: 600;
+}
+
+.badge {
+  background-color: rgba(255, 105, 180, 0.25);
+  color: #fff;
+  border: 1px solid rgba(255, 105, 180, 0.4);
+  padding: 8px 14px;
+  font-weight: normal;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  border-radius: 12px;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Experience List */
+.experience-list {
+  padding-left: 20px;
+  font-size: 16px;
+  color: #FCF5EE;
+}
+
+.experience-list li {
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+.experience-list li strong {
+  color: #ffb6c1;
+}
+
+/* Certifications List */
+.cert-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.cert-list li {
+  margin-bottom: 15px;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+}
+
+/* Skill Cards */
+.skill-card h4 {
+  font-size: 24px;
+  color: #ffb6c1;
+}
+.skill-card .skill-icon {
+  color: #ff69b4;
+}
+
+/* Custom Utilities */
+.tag-line {
+  font-family: "Autour One", system-ui;
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+
+.glass-footer {
+  background: rgba(0, 0, 0, 0.4);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 768px) {
+  .hero-section h1 {
+    font-size: 48px;
+  }
+  .hero-section span {
+    font-size: 40px;
+  }
+}
+
+/* Hero Image Extensions */
+.hero-image {
+  filter: drop-shadow(0 20px 40px rgba(255, 105, 180, 0.5));
+  animation: float 6s ease-in-out infinite;
+  transform-origin: center center;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-15px) rotate(1deg); }
+  100% { transform: translateY(0px) rotate(0deg); }
+}
