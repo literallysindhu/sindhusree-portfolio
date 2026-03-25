@@ -465,6 +465,18 @@
   }, { threshold: 0.3 });
 
   document.querySelectorAll('.grade-bars').forEach(el => gradeObserver.observe(el));
+  document.querySelectorAll('a[href="SindhusreeResume.pdf"]').forEach(link=>{
+link.addEventListener('click',function(e){
+e.preventDefault()
+window.open(this.href,'_blank')
+let a=document.createElement('a')
+a.href=this.href
+a.download='SindhusreeResume.pdf'
+document.body.appendChild(a)
+a.click()
+document.body.removeChild(a)
+})
+})
 </script>
 </body>
 </html>
