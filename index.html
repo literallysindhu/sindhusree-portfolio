@@ -7,82 +7,464 @@
 <link rel="icon" type="image/x-icon" href="pink-ribbon-bow.ico">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <link rel="stylesheet" href="main.css">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=DM+Sans&family=Space+Mono&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
+<!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-fixed-top">
-<div class="container-fluid px-4">
-<a class="navbar-brand" href="#">🎀 Sindhu</a>
-<div class="collapse navbar-collapse">
-<ul class="nav ms-auto align-items-center gap-1">
-<li><a class="nav-link" href="#about">About</a></li>
-<li><a class="nav-link" href="#education">Education</a></li>
-<li><a class="nav-link" href="#projects">Projects</a></li>
-<li><a class="nav-link" href="#experience">Experience</a></li>
-<li><a class="nav-link" href="#skills">Skills</a></li>
-<li><a class="nav-link" href="#achievements">Achievements</a></li>
-<li class="ms-2">
-<a href="SindhusreeResume.pdf" target="_blank" class="btn btn-resume-nav">
-<i class="fas fa-download me-1"></i> Resume
-</a>
-</li>
-</ul>
-</div>
-</div>
+  <div class="container-fluid px-4">
+    <a class="navbar-brand" href="#">🎀 Sindhu</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="nav ms-auto align-items-center gap-1">
+        <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="#education">Education</a></li>
+        <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
+        <li class="nav-item"><a class="nav-link" href="#experience">Experience</a></li>
+        <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
+        <li class="nav-item"><a class="nav-link" href="#achievements">Achievements</a></li>
+        <li class="nav-item ms-2">
+          <a href="SindhusreeResume.pdf" download class="btn btn-resume-nav">
+            <i class="fas fa-download me-1"></i> Resume
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
 </nav>
 
+<!-- Hero Section -->
 <section id="about" class="hero-section">
-<div class="container">
-<h1>Hello, I'm Sindhusree.</h1>
-<p>I code, I design, and I love building things.</p>
+  <div class="hero-blob blob-1"></div>
+  <div class="hero-blob blob-2"></div>
+  <div class="container h-100 position-relative">
+    <div class="row align-items-center h-100">
+      <div class="col-lg-7 text-center text-lg-start fade-in">
+        <p class="hero-tag">✦ Second-year CS Student · SRMIST</p>
+        <h1>Hello, I'm<br><span class="hero-name">Sindhusree.</span></h1>
+        <p class="hero-sub mt-3">I code, I design, and I love bringing ideas to life on the web.<br>Still learning, always curious, and excited about building better things.</p>
 
-<div class="social-links">
-<a href="mailto:sindhusree016@gmail.com" class="btn btn-pink">Email</a>
-<a href="https://github.com/literallysindhu" target="_blank" class="btn btn-pink">GitHub</a>
-<a href="https://linkedin.com/in/sindhusree" target="_blank" class="btn btn-pink">LinkedIn</a>
+        <div class="hero-stats mt-4 mb-4">
+          <div class="stat-pill"><span class="stat-num">9.3</span><span class="stat-label">GPA</span></div>
+          <div class="stat-pill"><span class="stat-num">500+</span><span class="stat-label">Problems Solved</span></div>
+          <div class="stat-pill"><span class="stat-num">1164</span><span class="stat-label">CodeChef Rating</span></div>
+        </div>
 
-<a href="SindhusreeResume.pdf" target="_blank" class="btn btn-download">
-Download Resume
-</a>
-</div>
-</div>
+        <div class="social-links mt-2 d-flex flex-wrap gap-2 justify-content-center justify-content-lg-start">
+          <a href="mailto:sindhusree016@gmail.com" class="btn btn-pink"><i class="fas fa-envelope me-2"></i>Email</a>
+          <a href="https://github.com/literallysindhu" target="_blank" class="btn btn-pink"><i class="fab fa-github me-2"></i>GitHub</a>
+          <a href="https://linkedin.com/in/sindhusree" target="_blank" class="btn btn-pink"><i class="fab fa-linkedin me-2"></i>LinkedIn</a>
+          <a href="https://codolio.com/profile/literallysindhu" target="_blank" class="btn btn-pink"><i class="fas fa-code me-2"></i>Codolio</a>
+          <a href="SindhusreeResume.pdf" download class="btn btn-download"><i class="fas fa-download me-2"></i>Download Resume</a>
+        </div>
+      </div>
+      <div class="col-lg-5 text-center mt-5 mt-lg-0 d-flex justify-content-center fade-in-delay">
+        <div class="hero-img-wrap">
+          <img src="hero_image-removebg-preview (1).png" alt="Sindhu" class="hero-image img-fluid">
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<section id="education">
-<h2>Education</h2>
-<p>B.Tech CSE - SRMIST</p>
+<!-- Education Section -->
+<section id="education" class="py-5 section-bg">
+  <div class="container">
+    <h2 class="section-title fade-up">Education</h2>
+    <p class="section-sub fade-up">My academic journey so far</p>
+
+    <div class="edu-timeline mt-5">
+
+      <!-- SRMIST -->
+      <div class="edu-card fade-up">
+        <div class="edu-card-inner">
+          <div class="edu-icon"><i class="fas fa-university"></i></div>
+          <div class="edu-content">
+            <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
+              <div>
+                <h3>B.Tech — Computer Science & Engineering</h3>
+                <h5 class="text-pink mt-1">SRM Institute of Science and Technology, Ramapuram</h5>
+                <p class="text-muted-light mt-1"><i class="fas fa-map-marker-alt me-2 text-pink"></i>Chennai, Tamil Nadu</p>
+              </div>
+              <span class="badge-date">Aug 2024 – May 2028</span>
+            </div>
+            <div class="mt-3 d-flex gap-3 flex-wrap">
+              <div class="edu-stat"><i class="fas fa-star text-warning me-2"></i><strong>GPA: 9.3 / 10.0</strong></div>
+              <div class="edu-stat"><i class="fas fa-language text-pink me-2"></i>Japanese — <strong>O Grade (Outstanding)</strong></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- School -->
+      <div class="edu-card fade-up">
+        <div class="edu-card-inner">
+          <div class="edu-icon"><i class="fas fa-school"></i></div>
+          <div class="edu-content">
+            <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
+              <div>
+                <h3>Sri Chaitanya Techno School</h3>
+                <h5 class="text-pink mt-1">CBSE Board</h5>
+                <p class="text-muted-light mt-1"><i class="fas fa-map-marker-alt me-2 text-pink"></i>Seshadripuram, Bengaluru</p>
+              </div>
+              <span class="badge-date">2021 – 2024</span>
+            </div>
+            <div class="grade-bars mt-4">
+              <div class="grade-row mb-3">
+                <div class="grade-label">Class X <span class="grade-year">(Mar 2022)</span></div>
+                <div class="grade-track">
+                  <div class="grade-fill" style="width: 91%"><span>91%</span></div>
+                </div>
+              </div>
+              <div class="grade-row">
+                <div class="grade-label">Class XII <span class="grade-year">(Mar 2024)</span></div>
+                <div class="grade-track">
+                  <div class="grade-fill" style="width: 86%"><span>86%</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
 </section>
 
-<section id="projects">
-<h2>Projects</h2>
-<p>DuelCom, Quiz Game, etc.</p>
+<!-- Projects Section -->
+<section id="projects" class="py-5">
+  <div class="container">
+    <h2 class="section-title fade-up">Projects</h2>
+    <p class="section-sub fade-up">Things I've built and shipped</p>
+    <div class="row mt-5 g-4">
+
+      <!-- DuelCom -->
+      <div class="col-lg-6 fade-up">
+        <div class="project-card featured h-100 d-flex flex-column">
+          <div class="project-header">
+            <span class="project-featured-tag">✦ Featured</span>
+            <div class="project-links">
+              <a href="https://duelcomv1.vercel.app" target="_blank" class="proj-link" title="Live Demo"><i class="fas fa-external-link-alt"></i></a>
+              <a href="https://github.com/literallysindhu/DuelCom-v1" target="_blank" class="proj-link" title="GitHub"><i class="fab fa-github"></i></a>
+            </div>
+          </div>
+          <h3 class="mt-2">DuelCom</h3>
+          <p class="text-pink tag-line">Competitive Coding Duel Platform</p>
+          <p class="flex-grow-1 text-light">Built a full-stack real-time coding duel platform using React.js, Node.js, and Firebase. Integrated an AI-powered problem generator to automate challenge creation. Designed the complete UI/UX in Figma before implementation — covering the duel lobby, coding interface, and analytics dashboard.</p>
+          <div class="tech-stack mt-3">
+            <span class="badge">React.js</span>
+            <span class="badge">Firebase</span>
+            <span class="badge">Node.js</span>
+            <span class="badge">JavaScript</span>
+            <span class="badge">Figma</span>
+            <span class="badge">Generative AI</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Environment Awareness Game -->
+      <div class="col-lg-6 fade-up">
+        <div class="project-card h-100 d-flex flex-column">
+          <h3>Environment Awareness Game</h3>
+          <p class="text-pink tag-line">Visual Novel Game</p>
+          <p class="flex-grow-1 text-light">Developed a visual novel-style educational game featuring branching story paths and custom UI elements to promote environmental awareness among players.</p>
+          <div class="tech-stack mt-3">
+            <span class="badge">Ren'Py</span>
+            <span class="badge">Python</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Care for Pet -->
+      <div class="col-md-6 fade-up">
+        <div class="project-card h-100 d-flex flex-column">
+          <h3>Care for Pet</h3>
+          <p class="text-pink tag-line">Mobile Game</p>
+          <p class="flex-grow-1 text-light">Built an interactive mobile simulation game with pet-care mechanics and an intuitive UI designed for younger audiences.</p>
+          <div class="tech-stack mt-3">
+            <span class="badge">MIT App Inventor</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quiz Game -->
+      <div class="col-md-6 fade-up">
+        <div class="project-card h-100 d-flex flex-column">
+          <h3>Quiz Game</h3>
+          <p class="text-pink tag-line">Command-Line Application</p>
+          <p class="flex-grow-1 text-light">Created a command-line quiz application supporting multiple rounds, dynamic scoring, and interactive gameplay logic in Python.</p>
+          <div class="tech-stack mt-3">
+            <span class="badge">Python</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
 </section>
 
-<section id="experience">
-<h2>Experience</h2>
-<p>GeeksforGeeks SRM Chapter</p>
+<!-- Experience Section -->
+<section id="experience" class="py-5 section-bg">
+  <div class="container">
+    <h2 class="section-title fade-up">Experience</h2>
+    <p class="section-sub fade-up">Clubs, communities, and roles</p>
+    <div class="timeline mt-5">
+
+      <div class="timeline-item fade-up">
+        <div class="timeline-dot"></div>
+        <div class="glass-card p-4">
+          <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
+            <div>
+              <h3 class="mb-1">Designer & Competitive Programmer</h3>
+              <h5 class="text-pink mb-0">GeeksforGeeks — SRM Ramapuram Chapter</h5>
+            </div>
+            <span class="badge-date">Aug 2024 – Present</span>
+          </div>
+          <ul class="experience-list mt-3">
+            <li>Solved <strong>500+ programming problems</strong> in C, C++, and Python across LeetCode, CodeChef, and GeeksforGeeks — consistently analysed constraints, evaluated approaches, and implemented optimal solutions.</li>
+            <li>Participated in <strong>43 competitive programming contests</strong> on CodeChef, achieving a rating of <strong>1164</strong>; earned badges for 250 problems and 25 contests on CodeChef, and a 50-day streak on LeetCode.</li>
+            <li>Maintained <strong>179 active coding days</strong> with a maximum streak of 18 days.</li>
+            <li>Served as <strong>Junior Coordinator</strong> for technical events — managed end-to-end logistics, led a team of volunteers, handled participant communication, and designed all event materials.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item fade-up">
+        <div class="timeline-dot"></div>
+        <div class="glass-card p-4">
+          <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
+            <div>
+              <h3 class="mb-1">Graphic Designer</h3>
+              <h5 class="text-pink mb-0">Literary Club, SRMIST Ramapuram</h5>
+            </div>
+            <span class="badge-date">Aug 2025 – Present</span>
+          </div>
+          <ul class="experience-list mt-3">
+            <li>Designed posters, branding assets, and promotional graphics for literary competitions and campus events.</li>
+            <li>Maintained consistent visual identity across digital platforms for all club initiatives.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item fade-up">
+        <div class="timeline-dot"></div>
+        <div class="glass-card p-4">
+          <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
+            <div>
+              <h3 class="mb-1">Team Member</h3>
+              <h5 class="text-pink mb-0">CampusLife Content Team</h5>
+            </div>
+            <span class="badge-date">2024 – 2025</span>
+          </div>
+          <ul class="experience-list mt-3">
+            <li>Appeared in promotional and student engagement videos published across SRM campus media platforms.</li>
+            <li>Assisted in creating digital content and graphics supporting campus campaigns and student initiatives.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
 </section>
 
-<section id="skills">
-<h2>Skills</h2>
-<p>C, C++, Python, JS</p>
+<!-- Skills Section -->
+<section id="skills" class="py-5">
+  <div class="container">
+    <h2 class="section-title fade-up">Technical Skills</h2>
+    <p class="section-sub fade-up">What I work with</p>
+    <div class="row mt-5 g-4">
+
+      <div class="col-md-6 col-lg-4 fade-up">
+        <div class="skill-card glass-card p-4 h-100">
+          <div class="skill-icon mb-3"><i class="fas fa-code fa-2x"></i></div>
+          <h4>Languages</h4>
+          <p class="text-light mt-2">C, C++, Python, JavaScript, TypeScript, Basic Java</p>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4 fade-up">
+        <div class="skill-card glass-card p-4 h-100">
+          <div class="skill-icon mb-3"><i class="fas fa-laptop-code fa-2x"></i></div>
+          <h4>Frontend Development</h4>
+          <p class="text-light mt-2"><strong>React.js</strong>, HTML5, CSS3, Bootstrap, Responsive UI Design</p>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4 fade-up">
+        <div class="skill-card glass-card p-4 h-100">
+          <div class="skill-icon mb-3"><i class="fas fa-pen-ruler fa-2x"></i></div>
+          <h4>UI/UX & Design</h4>
+          <p class="text-light mt-2"><strong>Figma</strong> (Wireframing, Prototyping), Graphic Design, Video Editing</p>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4 fade-up">
+        <div class="skill-card glass-card p-4 h-100">
+          <div class="skill-icon mb-3"><i class="fas fa-server fa-2x"></i></div>
+          <h4>Backend & Tools</h4>
+          <p class="text-light mt-2">Node.js, Firebase, Django <em>(in progress)</em>, Git</p>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4 fade-up">
+        <div class="skill-card glass-card p-4 h-100">
+          <div class="skill-icon mb-3"><i class="fas fa-network-wired fa-2x"></i></div>
+          <h4>Data Structures & Algorithms</h4>
+          <p class="text-light mt-2">Arrays, Hashing, Strings, Recursion, <strong>Dynamic Programming</strong>, Backtracking — <strong>500+ problems solved</strong></p>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4 fade-up">
+        <div class="skill-card glass-card p-4 h-100">
+          <div class="skill-icon mb-3"><i class="fas fa-language fa-2x"></i></div>
+          <h4>Languages Spoken</h4>
+          <p class="text-light mt-2">English, Tamil, Hindi, Kannada<br><span class="japanese-badge mt-2 d-inline-block">🇯🇵 Japanese — O Grade</span></p>
+        </div>
+      </div>
+
+    </div>
+  </div>
 </section>
 
-<section id="achievements">
-<h2>Achievements</h2>
-<p>500+ problems solved</p>
+<!-- Achievements & Certifications Section -->
+<section id="achievements" class="py-5 section-bg">
+  <div class="container">
+    <div class="row g-5">
+
+      <!-- Achievements -->
+      <div class="col-lg-6">
+        <h2 class="section-title fade-up">Achievements</h2>
+        <p class="section-sub fade-up">Milestones along the way</p>
+
+        <div class="achievement-card glass-card p-4 mb-3 d-flex align-items-start fade-up">
+          <div class="ach-icon me-3"><i class="fas fa-trophy text-warning fa-2x"></i></div>
+          <div>
+            <h4 class="mb-1">500+ Coding Problems Solved</h4>
+            <p class="mb-0 text-light">Across LeetCode, CodeChef, and GeeksforGeeks covering arrays, hashing, strings, and dynamic programming.</p>
+          </div>
+        </div>
+
+        <div class="achievement-card glass-card p-4 mb-3 d-flex align-items-start fade-up">
+          <div class="ach-icon me-3"><i class="fas fa-star text-warning fa-2x"></i></div>
+          <div>
+            <h4 class="mb-1">CodeChef Rating 1164</h4>
+            <p class="mb-0 text-light">Achieved through 43 coding contests. Earned badges for <strong>250 problems solved</strong> and <strong>25 contests</strong> on CodeChef.</p>
+          </div>
+        </div>
+
+        <div class="achievement-card glass-card p-4 mb-3 d-flex align-items-start fade-up">
+          <div class="ach-icon me-3"><i class="fas fa-fire text-danger fa-2x"></i></div>
+          <div>
+            <h4 class="mb-1">LeetCode 50-Day Streak</h4>
+            <p class="mb-0 text-light">Maintained a <strong>50-day continuous coding streak</strong> demonstrating consistent algorithm practice.</p>
+          </div>
+        </div>
+
+        <div class="achievement-card glass-card p-4 mb-3 d-flex align-items-start fade-up">
+          <div class="ach-icon me-3"><i class="fas fa-language text-info fa-2x"></i></div>
+          <div>
+            <h4 class="mb-1">Japanese — O Grade (Outstanding)</h4>
+            <p class="mb-0 text-light">Completed Japanese language course at SRMIST and achieved an Outstanding grade in Semester II.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Certifications -->
+      <div class="col-lg-6 d-flex flex-column">
+        <h2 class="section-title fade-up">Certifications</h2>
+        <p class="section-sub fade-up">Courses I've completed</p>
+        <div class="glass-card p-4 flex-grow-1 mt-2 fade-up">
+          <ul class="cert-list">
+            <li>
+              <i class="fas fa-certificate text-pink me-3"></i>
+              <div><strong>Figma UI/UX Essentials</strong><span class="cert-source">Udemy</span></div>
+            </li>
+            <li>
+              <i class="fas fa-certificate text-pink me-3"></i>
+              <div><strong>Full Stack Development Bootcamp</strong><span class="cert-source">Udemy</span></div>
+            </li>
+            <li>
+              <i class="fas fa-certificate text-pink me-3"></i>
+              <div><strong>Pygame Development</strong><span class="cert-source">freeCodeCamp</span></div>
+            </li>
+            <li>
+              <i class="fas fa-certificate text-pink me-3"></i>
+              <div><strong>Introduction to C++</strong><span class="cert-source">Simplilearn</span></div>
+            </li>
+            <li class="in-progress">
+              <i class="fas fa-spinner fa-spin text-pink me-3"></i>
+              <div><strong>Django Web Development</strong><span class="cert-source">Udemy · In Progress</span></div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
 </section>
 
-<footer class="text-center">
-<p>Sindhusree © 2026</p>
-
-<a href="SindhusreeResume.pdf" target="_blank" class="btn btn-download">
-Download Resume
-</a>
+<!-- Footer -->
+<footer class="py-5 text-center glass-footer">
+  <div class="container">
+    <p class="footer-name mb-2">Sindhusree</p>
+    <div class="footer-links mb-3">
+      <a href="mailto:sindhusree016@gmail.com"><i class="fas fa-envelope"></i></a>
+      <a href="https://github.com/literallysindhu" target="_blank"><i class="fab fa-github"></i></a>
+      <a href="https://linkedin.com/in/sindhusree" target="_blank"><i class="fab fa-linkedin"></i></a>
+      <a href="https://codolio.com/profile/literallysindhu" target="_blank"><i class="fas fa-code"></i></a>
+    </div>
+    <a href="SindhusreeResume.pdf" download class="btn btn-download mb-3"><i class="fas fa-download me-2"></i>Download Resume</a>
+    <p class="mb-0 footer-copy">Designed & Built with 💖 by Sindhu © 2026</p>
+  </div>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script>
+  // Smooth scroll for nav links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  // Navbar scroll effect
+  const navbar = document.querySelector('.navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 50);
+  });
+
+  // Intersection Observer for fade-up animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-up, .fade-in, .fade-in-delay').forEach(el => observer.observe(el));
+
+  // Animate grade bars on scroll
+  const gradeObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.querySelectorAll('.grade-fill').forEach(bar => {
+          bar.style.transition = 'width 1.2s cubic-bezier(0.4, 0, 0.2, 1)';
+          bar.style.width = bar.getAttribute('style').match(/width:\s*(\d+%)/)[1];
+        });
+      }
+    });
+  }, { threshold: 0.3 });
+
+  document.querySelectorAll('.grade-bars').forEach(el => gradeObserver.observe(el));
+</script>
 </body>
 </html>
