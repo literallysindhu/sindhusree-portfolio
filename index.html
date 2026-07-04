@@ -1,0 +1,896 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sindhu's Portfolio</title>
+<script>
+  (function() {
+    const savedTheme = localStorage.getItem('theme');
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const theme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', theme);
+  })();
+</script>
+<link rel="icon" type="image/x-icon" href="pink-ribbon-bow.ico">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<link rel="stylesheet" href="main.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&family=Caveat:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+  /* ===== Polaroid Fan Row — Hero Visual ===== */
+  .hero-visual-col {
+    position: relative;
+  }
+  .polaroid-stage {
+    position: relative;
+    width: 100%;
+    max-width: 820px;
+    height: 600px;
+    margin: 0 auto;
+  }
+
+  .polaroid-item {
+    position: absolute;
+    top: 50%;
+    width: var(--w, 34%);
+    filter: drop-shadow(0 14px 24px rgba(0,0,0,.3));
+    transform: translate(calc(-50% + var(--tx)), -50%) translateY(var(--ty)) rotate(var(--r)) scale(var(--s));
+    opacity: 0;
+    will-change: transform;
+  }
+  .polaroid-item.in {
+    animation: fadeUpIn 0.75s cubic-bezier(.2,1,.3,1) forwards;
+    animation-delay: var(--fd, 0s);
+  }
+  .polaroid-item.floating {
+    opacity: 1;
+    animation: floatBob 4.5s ease-in-out infinite;
+    animation-delay: var(--bd, 0s);
+  }
+  .polaroid-item.floating:hover {
+    animation: none;
+    transition: transform .25s ease;
+    transform: translate(calc(-50% + var(--tx)), -50%) translateY(var(--fy, 0px)) rotate(var(--r)) scale(1.06);
+    z-index: 10 !important;
+  }
+  @keyframes fadeUpIn {
+    0%   { transform: translate(-50%, -50%) translateY(40px) rotate(0deg) scale(0.85); opacity: 0; }
+    100% { transform: translate(calc(-50% + var(--tx)), -50%) translateY(var(--ty)) rotate(var(--r)) scale(var(--s)); opacity: 1; }
+  }
+  @keyframes floatBob {
+    0%, 100% { transform: translate(calc(-50% + var(--tx)), -50%) translateY(var(--ty)) rotate(var(--r)) scale(var(--s)); }
+    50%      { transform: translate(calc(-50% + var(--tx)), -50%) translateY(calc(var(--ty) - 10px)) rotate(calc(var(--r) + 1deg)) scale(var(--s)); }
+  }
+
+  @media (max-width: 991px) {
+    .polaroid-stage { max-width: 480px; height: 460px; }
+  }
+  @media (max-width: 768px) {
+    .polaroid-item[src*="leader"] {
+      --tx: -55% !important;
+      --w: 48% !important;
+    }
+    .polaroid-item[src*="builder"] {
+      --w: 52% !important;
+    }
+    .polaroid-item[src*="student"] {
+      --tx: 55% !important;
+      --w: 48% !important;
+    }
+  }
+  @media (max-width: 480px) {
+    .polaroid-stage {
+      height: 350px;
+    }
+    .polaroid-item[src*="leader"] {
+      --tx: -42% !important;
+      --w: 54% !important;
+      --r: -6deg !important;
+    }
+    .polaroid-item[src*="builder"] {
+      --w: 58% !important;
+    }
+    .polaroid-item[src*="student"] {
+      --tx: 42% !important;
+      --w: 54% !important;
+      --r: 6deg !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+
+<div id="themeNudge" class="theme-nudge" aria-live="polite" role="tooltip">
+  <div class="theme-nudge-arrow"></div>
+  <p class="theme-nudge-text">too light for you?<br>switch to dark mode ✦</p>
+  <button id="themeNudgeDismiss" class="theme-nudge-dismiss">no thanks</button>
+</div>
+
+<nav class="navbar navbar-expand-lg navbar-fixed-top">
+  <div class="container-fluid px-4">
+    <a class="navbar-brand" href="#">🎀 Sindhu</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="nav ms-auto align-items-center gap-1">
+        <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="#education">Education</a></li>
+        <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
+        <li class="nav-item"><a class="nav-link" href="#experience">Experience</a></li>
+        <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
+        <li class="nav-item"><a class="nav-link" href="#achievements">Achievements</a></li>
+        <li class="nav-item"><a class="nav-link" href="#certifications">Certifications</a></li>
+        <li class="nav-item ms-3 d-flex align-items-center">
+          <button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle Theme">
+            <div class="toggle-track">
+              <div class="toggle-thumb">
+                <i class="fas fa-sun sun-icon"></i>
+                <i class="fas fa-moon moon-icon"></i>
+              </div>
+            </div>
+          </button>
+        </li>
+        <li class="nav-item ms-2">
+          <a href="SindhusreeResume.pdf" download class="btn btn-resume-nav">
+            <i class="fas fa-download me-1"></i> Resume
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<section id="about" class="hero-section">
+  <div class="hero-blob blob-1"></div>
+  <div class="hero-blob blob-2"></div>
+  <div class="container h-100 position-relative">
+    <div class="row align-items-center h-100">
+      <div class="col-lg-5 text-center text-lg-start fade-in">
+        <p class="hero-tag">✦ Second-year CS Student · SRMIST</p>
+        <h1>Hello, I'm<br><span class="hero-name">Sindhusree.</span></h1>
+        <p class="hero-sub mt-3">I code, I design, and I love bringing ideas to life on the web.<br>Still learning, always curious, and excited about building better things.</p>
+
+        <div class="hero-stats mt-4 mb-4">
+          <div class="stat-pill"><span class="stat-num">9.5</span><span class="stat-label">GPA</span></div>
+          <div class="stat-pill"><span class="stat-num">500+</span><span class="stat-label">Problems Solved</span></div>
+          <div class="stat-pill"><span class="stat-num">1200+</span><span class="stat-label">CodeChef Rating</span></div>
+        </div>
+
+        <div class="social-links mt-2 d-flex flex-wrap gap-2 justify-content-center justify-content-lg-start">
+          <a href="mailto:sindhusree016@gmail.com" class="btn btn-pink"><i class="fas fa-envelope me-2"></i>Email</a>
+          <a href="https://github.com/literallysindhu" target="_blank" class="btn btn-pink"><i class="fab fa-github me-2"></i>GitHub</a>
+          <a href="https://linkedin.com/in/sindhusree" target="_blank" class="btn btn-pink"><i class="fab fa-linkedin me-2"></i>LinkedIn</a>
+          <a href="https://codolio.com/profile/literally.sindhu" target="_blank" class="btn btn-pink"><i class="fas fa-code me-2"></i>Codolio</a>
+          <a href="SindhusreeResume.pdf" download class="btn btn-download"><i class="fas fa-download me-2"></i>Download Resume</a>
+        </div>
+      </div>
+      <div class="col-lg-7 text-center mt-5 mt-lg-0 d-flex justify-content-center fade-in-delay hero-visual-col">
+        <div class="polaroid-stage" id="polaroidStage">
+
+          <img src="polaroid-leader.png" alt="A Leader" class="polaroid-item"
+               style="--w:52%; --tx:-75%; --ty:20px; --s:0.94; --r:-8deg; --fd:0s; --bd:0s; --fy:20px; left:50%; z-index:1;">
+
+          <img src="polaroid-builder.png" alt="A Builder" class="polaroid-item"
+               style="--w:56%; --tx:0%; --ty:-14px; --s:1; --r:3deg; --fd:0.15s; --bd:0.25s; --fy:-14px; left:50%; z-index:3;">
+
+          <img src="polaroid-student.png" alt="A Student" class="polaroid-item"
+               style="--w:52%; --tx:75%; --ty:22px; --s:0.94; --r:9deg; --fd:0.3s; --bd:0.5s; --fy:22px; left:50%; z-index:2;">
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section id="education" class="py-5 section-bg">
+  <div class="container">
+    <h2 class="section-title fade-up">Education</h2>
+    <p class="section-sub fade-up">My academic journey so far</p>
+
+    <div class="edu-timeline mt-5">
+
+      
+      <div class="edu-card fade-up">
+        <div class="edu-card-inner">
+          <div class="edu-icon"><i class="fas fa-university"></i></div>
+          <div class="edu-content">
+            <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
+              <div>
+                <h3>B.Tech — Computer Science & Engineering</h3>
+                <h5 class="text-pink mt-1">SRM Institute of Science and Technology, Ramapuram</h5>
+                <p class="text-muted-light mt-1"><i class="fas fa-map-marker-alt me-2 text-pink"></i>Chennai, Tamil Nadu</p>
+              </div>
+              <span class="badge-date">Aug 2024 – May 2028</span>
+            </div>
+            <div class="mt-3 d-flex gap-3 flex-wrap">
+              <div class="edu-stat"><i class="fas fa-star text-warning me-2"></i><strong>GPA: 9.5 / 10.0</strong></div>
+              <div class="edu-stat"><i class="fas fa-language text-pink me-2"></i>Japanese — <strong>O Grade (Outstanding)</strong></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      
+      <div class="edu-card fade-up">
+        <div class="edu-card-inner">
+          <div class="edu-icon"><i class="fas fa-school"></i></div>
+          <div class="edu-content">
+            <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
+              <div>
+                <h3>Sri Chaitanya Techno School</h3>
+                <h5 class="text-pink mt-1">CBSE Board</h5>
+                <p class="text-muted-light mt-1"><i class="fas fa-map-marker-alt me-2 text-pink"></i>Seshadripuram, Bengaluru</p>
+              </div>
+              <span class="badge-date">2021 – 2024</span>
+            </div>
+            <div class="grade-bars mt-4">
+              <div class="grade-row mb-3">
+                <div class="grade-label">Class X <span class="grade-year">(Mar 2022)</span></div>
+                <div class="grade-track">
+                  <div class="grade-fill" style="width: 91%"><span>91%</span></div>
+                </div>
+              </div>
+              <div class="grade-row">
+                <div class="grade-label">Class XII <span class="grade-year">(Mar 2024)</span></div>
+                <div class="grade-track">
+                  <div class="grade-fill" style="width: 86%"><span>86%</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<section id="projects" class="py-5">
+  <div class="container">
+    <h2 class="section-title fade-up">Projects</h2>
+    <p class="section-sub fade-up">Things I've built and shipped</p>
+    <div class="row mt-5 g-4">
+
+      
+      <div class="col-lg-6 fade-up">
+        <div class="project-card featured h-100 d-flex flex-column">
+          <div class="project-header">
+            <span class="project-featured-tag">✦ Featured</span>
+            <div class="project-links">
+              <a href="https://duelcomv1.vercel.app" target="_blank" class="proj-link" title="Live Demo"><i class="fas fa-external-link-alt"></i></a>
+              <a href="https://github.com/literallysindhu/DuelCom-v1" target="_blank" class="proj-link" title="GitHub"><i class="fab fa-github"></i></a>
+            </div>
+          </div>
+          <h3 class="mt-2">DuelCom</h3>
+          <p class="text-pink tag-line">Competitive Coding Duel Platform</p>
+          <p class="flex-grow-1 text-light">Built a full-stack real-time coding duel platform using React.js, Node.js, and Firebase. Integrated an AI-powered problem generator to automate challenge creation. Designed the complete UI/UX in Figma before implementation — covering the duel lobby, coding interface, and analytics dashboard.</p>
+          <div class="tech-stack mt-3">
+            <span class="badge">React.js</span>
+            <span class="badge">Firebase</span>
+            <span class="badge">Node.js</span>
+            <span class="badge">JavaScript</span>
+            <span class="badge">Figma</span>
+            <span class="badge">Generative AI</span>
+          </div>
+        </div>
+      </div>
+
+      
+      <div class="col-lg-6 fade-up">
+        <div class="project-card featured h-100 d-flex flex-column">
+          <div class="project-header">
+            <span class="project-featured-tag">✦ Featured</span>
+            <div class="project-links">
+              <a href="https://questoria-dsa.vercel.app/" target="_blank" class="proj-link" title="Live Demo"><i class="fas fa-external-link-alt"></i></a>
+              <a href="https://github.com/literallysindhu/questoria" target="_blank" class="proj-link" title="GitHub"><i class="fab fa-github"></i></a>
+              <a href="https://www.linkedin.com/posts/sindhusree_there-are-countless-platforms-that-teach-activity-7475892065420214274-pmAW?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFKhcYsBP5N0Pz-V551KLUih7Na5XMdR2wk" target="_blank" class="proj-link" title="LinkedIn Post"><i class="fab fa-linkedin"></i></a>
+            </div>
+          </div>
+          <h3 class="mt-2">Questoria</h3>
+          <p class="text-pink tag-line">Gamified Data Structures & Algorithms Platform</p>
+          <p class="flex-grow-1 text-light">Built a fantasy RPG-style learning platform that turns core DSA concepts into interactive quests — a rune-sorting challenge for Bubble Sort, an N-Queens chess courtyard for backtracking, and a market simulation for the Fractional Knapsack greedy algorithm. Features a guide mascot with typewriter narration, a procedural Web Audio API sound engine built from scratch, star-based ranking across 3 local save profiles, and JSON import/export for progress.</p>
+          <div class="tech-stack mt-3">
+            <span class="badge">React 19</span>
+            <span class="badge">TypeScript</span>
+            <span class="badge">Vite</span>
+            <span class="badge">CSS Modules</span>
+            <span class="badge">Web Audio API</span>
+          </div>
+        </div>
+      </div>
+
+      
+      <div class="col-md-6 fade-up">
+        <div class="project-card h-100 d-flex flex-column">
+          <div class="project-header">
+            <div class="project-links">
+              <a href="https://github.com/literallysindhu/care-for-pet" target="_blank" class="proj-link" title="GitHub">
+                <i class="fab fa-github"></i>
+              </a>
+              <a href="https://www.linkedin.com/posts/sindhusree_careforpet-python-pygame-activity-7347022994273161216-2U_I?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFKhcYsBP5N0Pz-V551KLUih7Na5XMdR2wk" target="_blank" class="proj-link" title="LinkedIn Demo">
+                <i class="fas fa-video"></i>
+              </a>
+            </div>
+          </div>
+          <h3>Care for Pet</h3>
+          <p class="text-pink tag-line">Virtual Pet Care Simulation Game</p>
+          <p class="flex-grow-1 text-light">
+            Developed an interactive virtual pet-care game in Python where players manage their pet's health, happiness, and daily activities through engaging gameplay mechanics. Designed an intuitive user experience focused on pet interaction, resource management, and progression.
+          </p>
+          <p class="text-light mb-2"><strong>Demo video available as my LinkedIn post.</strong></p>
+          <div class="tech-stack mt-3">
+            <span class="badge">Python</span>
+            <span class="badge">Game Development</span>
+          </div>
+        </div>
+      </div>
+
+      
+      <div class="col-md-6 fade-up">
+        <div class="project-card h-100 d-flex flex-column">
+          <h3>Quiz Game</h3>
+          <p class="text-pink tag-line">Command-Line Application</p>
+          <p class="flex-grow-1 text-light">Created a command-line quiz application supporting multiple rounds, dynamic scoring, and interactive gameplay logic in Python.</p>
+          <div class="tech-stack mt-3">
+            <span class="badge">Python</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<section id="experience" class="py-5 section-bg">
+  <div class="container">
+    <h2 class="section-title fade-up">Experience</h2>
+    <p class="section-sub fade-up">Clubs, communities, and roles</p>
+    <div class="timeline mt-5">
+
+      <div class="timeline-item fade-up">
+        <div class="timeline-dot"></div>
+        <div class="glass-card p-4">
+          <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
+            <div>
+              <h3 class="mb-1">President</h3>
+              <h5 class="text-pink mb-0">GeeksforGeeks — SRM Ramapuram Chapter</h5>
+            </div>
+            <span class="badge-date">Aug 2024 – Present</span>
+          </div>
+          <ul class="experience-list mt-3">
+            <li>Appointed as President (previously Junior Coordinator) of the GeeksforGeeks student chapter, leading college technical initiatives, hackathons, and programming workshops.</li>
+            <li>Serve as the Primary Point of Contact directly managing approvals and event logistics between the chapter administration and SRMIST's central campus body.</li>
+            <li>Solved 500+ programming problems in C, C++, and Python across LeetCode, CodeChef, and GeeksforGeeks while managing chapter operations.</li>
+            <li>Participated in 40+ contests on CodeChef (1200+ rating) and built active campus programming culture.</li>
+          </ul>
+          <a href="certificates/offer%20letter.jpeg" target="_blank" class="btn btn-outline-pink btn-sm mt-3 d-inline-flex align-items-center gap-1">
+            <i class="fas fa-file-signature"></i> View GFG Appointment Letter
+          </a>
+        </div>
+      </div>
+
+      <div class="timeline-item fade-up">
+        <div class="timeline-dot"></div>
+        <div class="glass-card p-4">
+          <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
+            <div>
+              <h3 class="mb-1">Graphic Designer</h3>
+              <h5 class="text-pink mb-0">Literary Club, SRMIST Ramapuram</h5>
+            </div>
+            <span class="badge-date">Aug 2025 – Jul 2026</span>
+          </div>
+          <ul class="experience-list mt-3">
+            <li>Designed posters, branding assets, and promotional graphics for literary competitions and campus events.</li>
+            <li>Maintained consistent visual identity across digital platforms for all club initiatives.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item fade-up">
+        <div class="timeline-dot"></div>
+        <div class="glass-card p-4">
+          <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
+            <div>
+              <h3 class="mb-1">Team Member</h3>
+              <h5 class="text-pink mb-0">CampusLife Content Team</h5>
+            </div>
+            <span class="badge-date">2024 – 2025</span>
+          </div>
+          <ul class="experience-list mt-3">
+            <li>Appeared in promotional and student engagement videos published across SRM campus media platforms.</li>
+            <li>Assisted in creating digital content and graphics supporting campus campaigns and student initiatives.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<section id="skills" class="py-5">
+  <div class="container">
+    <h2 class="section-title fade-up">Technical Skills</h2>
+    <p class="section-sub fade-up">My core technical strengths and practical experience</p>
+    
+    <div class="row mt-5 g-4">
+
+      
+      <div class="col-md-6 fade-up">
+        <div class="skill-card glass-card p-4 h-100 d-flex flex-column">
+          <div class="skill-header d-flex align-items-center mb-3">
+            <div class="skill-icon me-3"><i class="fas fa-code"></i></div>
+            <h4 class="mb-0">Programming Languages</h4>
+          </div>
+          <div class="skills-grid mb-3 flex-grow-1">
+            <span class="skill-pill"><i class="fab fa-python text-primary me-1"></i> Python</span>
+            <span class="skill-pill"><i class="fas fa-terminal text-info me-1"></i> C++</span>
+            <span class="skill-pill"><i class="fab fa-js text-warning me-1"></i> JavaScript</span>
+            <span class="skill-pill"><i class="fab fa-js text-primary me-1"></i> TypeScript</span>
+            <span class="skill-pill"><i class="fas fa-terminal me-1"></i> C</span>
+            <span class="skill-pill"><i class="fab fa-java text-danger me-1"></i> Java (Basic)</span>
+          </div>
+          <p class="text-light-dark small mb-0"><i class="fas fa-info-circle me-1"></i> Applied in competitive programming contests (CodeChef 1200+), coursework, and full-stack web builds.</p>
+        </div>
+      </div>
+
+      
+      <div class="col-md-6 fade-up">
+        <div class="skill-card glass-card p-4 h-100 d-flex flex-column">
+          <div class="skill-header d-flex align-items-center mb-3">
+            <div class="skill-icon me-3"><i class="fas fa-desktop"></i></div>
+            <h4 class="mb-0">Web & Full-Stack</h4>
+          </div>
+          <div class="skills-grid mb-3 flex-grow-1">
+            <span class="skill-pill"><i class="fab fa-react text-info me-1"></i> React.js</span>
+            <span class="skill-pill"><i class="fab fa-node-js text-success me-1"></i> Node.js</span>
+            <span class="skill-pill"><i class="fas fa-fire-alt text-danger me-1"></i> Django</span>
+            <span class="skill-pill"><i class="fas fa-fire text-warning me-1"></i> Firebase</span>
+            <span class="skill-pill"><i class="fas fa-database text-info me-1"></i> SQL / PostgreSQL</span>
+            <span class="skill-pill"><i class="fab fa-bootstrap text-purple me-1"></i> Bootstrap</span>
+          </div>
+          <p class="text-light-dark small mb-0"><i class="fas fa-info-circle me-1"></i> Designed dynamic frontend states, relational schemas, user authentication, and backend API routes.</p>
+        </div>
+      </div>
+
+      
+      <div class="col-md-6 fade-up">
+        <div class="skill-card glass-card p-4 h-100 d-flex flex-column">
+          <div class="skill-header d-flex align-items-center mb-3">
+            <div class="skill-icon me-3"><i class="fas fa-tools"></i></div>
+            <h4 class="mb-0">Tools & Design</h4>
+          </div>
+          <div class="skills-grid mb-3 flex-grow-1">
+            <span class="skill-pill"><i class="fab fa-figma text-danger me-1"></i> Figma (UI/UX)</span>
+            <span class="skill-pill"><i class="fab fa-git-alt text-danger me-1"></i> Git / GitHub</span>
+            <span class="skill-pill"><i class="fas fa-bolt text-warning me-1"></i> Vite / npm</span>
+            <span class="skill-pill"><i class="fas fa-gamepad text-success me-1"></i> Pygame</span>
+            <span class="skill-pill"><i class="fas fa-paint-brush text-primary me-1"></i> Graphic Design</span>
+            <span class="skill-pill"><i class="fas fa-video text-warning me-1"></i> Video Editing</span>
+          </div>
+          <p class="text-light-dark small mb-0"><i class="fas fa-info-circle me-1"></i> Managed version control workflows, UI wireframing, game logic loops, and campus community graphic materials.</p>
+        </div>
+      </div>
+
+      
+      <div class="col-md-6 fade-up">
+        <div class="skill-card glass-card p-4 h-100 d-flex flex-column">
+          <div class="skill-header d-flex align-items-center mb-3">
+            <div class="skill-icon me-3"><i class="fas fa-language"></i></div>
+            <h4 class="mb-0">Languages Spoken</h4>
+          </div>
+          <div class="skills-grid mb-3 flex-grow-1">
+            <span class="skill-pill"> English <strong class="badge-prof">Fluent</strong></span>
+            <span class="skill-pill"> Tamil <strong class="badge-prof">Fluent</strong></span>
+            <span class="skill-pill"> Hindi <strong class="badge-prof">Conversational</strong></span>
+            <span class="skill-pill"> Kannada <strong class="badge-prof">Conversational</strong></span>
+            <span class="skill-pill"><span class="japanese-badge"><i class="fas fa-globe-asia me-1"></i> Japanese (O Grade)</span></span>
+          </div>
+          <p class="text-light-dark small mb-0"><i class="fas fa-info-circle me-1"></i> Excellent written and verbal communication, certified academic distinction in Japanese.</p>
+        </div>
+      </div>
+
+      
+      <div class="col-12 fade-up">
+        <div class="project-card featured p-4">
+          <span class="project-featured-tag mb-2 d-inline-block">✦ Core Focus</span>
+          <h3>Data Structures & Algorithms</h3>
+          <p class="text-pink tag-line">Proven Problem Solver</p>
+          <p class="text-light mb-2">Experienced in analyzing complex runtime parameters and constraints. Solved <strong>500+ programming problems</strong> covering Arrays, Hashing, Recursion, Backtracking, and Dynamic Programming.</p>
+          <div class="mt-3 d-flex gap-2 flex-wrap">
+            <a href="https://codolio.com/profile/literally.sindhu" target="_blank" class="btn btn-pink btn-sm d-inline-flex align-items-center gap-1"><i class="fas fa-code"></i> View Codolio Profile</a>
+            <button class="btn btn-outline-pink btn-sm d-inline-flex align-items-center gap-1" data-bs-toggle="modal" data-bs-target="#certModal" onclick="document.getElementById('modalCertImage').src='profileCard.png'; document.getElementById('certModalLabel').textContent='Codolio Profile Card';">
+              <i class="fas fa-id-card"></i> View Codolio Card
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<section id="achievements" class="py-5 section-bg">
+  <div class="container">
+    <h2 class="section-title fade-up">Achievements</h2>
+    <p class="section-sub fade-up">Key milestones and competitive programming highlights</p>
+    
+    <div class="row mt-5 g-4">
+      
+      <div class="col-md-6 fade-up">
+        <div class="achievement-card glass-card p-4 h-100 d-flex align-items-start">
+          <div class="ach-icon me-3"><i class="fas fa-trophy text-warning fa-2x"></i></div>
+          <div>
+            <h4 class="mb-1">500+ Coding Problems Solved</h4>
+            <p class="mb-0 text-light">Successfully solved algorithmic problems across LeetCode, CodeChef, and GeeksforGeeks, focusing on data structures, recursion, dynamic programming, and computational constraints.</p>
+          </div>
+        </div>
+      </div>
+
+      
+      <div class="col-md-6 fade-up">
+        <div class="achievement-card glass-card p-4 h-100 d-flex align-items-start">
+          <div class="ach-icon me-3"><i class="fas fa-star text-warning fa-2x"></i></div>
+          <div>
+            <h4 class="mb-1">CodeChef Rating 1200+</h4>
+            <p class="mb-0 text-light">Achieved a rating milestone of 1200+ through active participation in 40+ programming contests. Earned badges for 250+ problems solved and 20+ contests.</p>
+          </div>
+        </div>
+      </div>
+
+      
+      <div class="col-md-6 fade-up">
+        <div class="achievement-card glass-card p-4 h-100 d-flex align-items-start">
+          <div class="ach-icon me-3"><i class="fas fa-fire text-danger fa-2x"></i></div>
+          <div>
+            <h4 class="mb-1">LeetCode 50+ Day Streak</h4>
+            <p class="mb-0 text-light">Maintained a continuous daily practice streak for over 50+ days, solving daily challenges and strengthening core algorithm analysis skills.</p>
+          </div>
+        </div>
+      </div>
+
+       
+      <div class="col-md-6 fade-up">
+        <div class="achievement-card glass-card p-4 h-100 d-flex align-items-start">
+          <div class="ach-icon me-3"><i class="fas fa-users text-pink fa-2x"></i></div>
+          <div>
+            <h4 class="mb-1">GFG President & Primary POC</h4>
+            <p class="mb-0 text-light">Serve as the primary point of contact between GeeksforGeeks student chapter and SRMIST's administration campus body for technical events, workshops, and approvals.</p>
+          </div>
+        </div>
+      </div>
+
+      
+      <div class="col-md-6 fade-up">
+        <div class="achievement-card glass-card p-4 h-100 d-flex align-items-start">
+          <div class="ach-icon me-3"><i class="fas fa-globe text-info fa-2x"></i></div>
+          <div>
+            <h4 class="mb-1">Japanese Language — Outstanding (O) Grade</h4>
+            <p class="mb-0 text-light">Completed Japanese language courses at SRMIST, achieving the highest possible Outstanding "O" Grade in Semester II academic evaluations.</p>
+          </div>
+        </div>
+      </div>
+
+      
+      <div class="col-md-6 fade-up">
+        <div class="achievement-card glass-card p-4 h-100 d-flex align-items-start">
+          <div class="ach-icon me-3"><i class="fas fa-palette text-success fa-2x"></i></div>
+          <div>
+            <h4 class="mb-1">Club Branding & Poster Design</h4>
+            <p class="mb-0 text-light">Designed promotional poster materials and graphic assets for the Literary Club and CampusLife Content Team at SRMIST.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<section id="certifications" class="py-5">
+  <div class="container position-relative">
+    <h2 class="section-title fade-up">Certifications</h2>
+    <p class="section-sub fade-up">Professional training, credentials, and courses completed</p>
+    
+    <div id="certificationsCarousel" class="carousel slide mt-5 fade-up" data-bs-ride="carousel" data-bs-interval="3500">
+      
+      <div class="carousel-indicators" style="bottom: -50px;">
+        <button type="button" data-bs-target="#certificationsCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#certificationsCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#certificationsCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        <button type="button" data-bs-target="#certificationsCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
+        <button type="button" data-bs-target="#certificationsCarousel" data-bs-slide-to="4" aria-label="Slide 5"></button>
+        <button type="button" data-bs-target="#certificationsCarousel" data-bs-slide-to="5" aria-label="Slide 6"></button>
+      </div>
+
+      
+      <div class="carousel-inner px-2 py-3">
+        
+        
+        <div class="carousel-item active">
+          <div class="d-flex justify-content-center">
+            <div class="glass-card cert-card p-4 d-flex flex-column" style="max-width: 540px; width: 100%; min-height: 480px;">
+              <div class="cert-img-container mb-3" style="cursor: pointer; overflow: hidden; border-radius: 12px; border: 1px solid var(--border);"
+                   data-bs-toggle="modal" data-bs-target="#certModal" onclick="document.getElementById('modalCertImage').src='certificates/figma.jpg'; document.getElementById('certModalLabel').textContent='Figma UI/UX Essentials';">
+                <img src="certificates/figma.jpg" alt="Figma Certificate" class="img-fluid cert-thumb" style="width: 100%; height: 200px; object-fit: cover;">
+              </div>
+              <div class="d-flex align-items-center mb-3">
+                <div class="edu-icon me-3"><i class="fas fa-certificate"></i></div>
+                <div>
+                  <h5 class="mb-0">Figma UI/UX Essentials</h5>
+                  <small class="text-pink">Udemy Credential</small>
+                </div>
+              </div>
+              <p class="text-light flex-grow-1">Advanced training covering professional design systems, UI wireframing, component libraries, and interactive prototyping inside Figma.</p>
+              <div class="mt-auto pt-3 d-flex gap-2">
+                <button class="btn btn-pink btn-sm flex-grow-1" data-bs-toggle="modal" data-bs-target="#certModal" onclick="document.getElementById('modalCertImage').src='certificates/figma.jpg'; document.getElementById('certModalLabel').textContent='Figma UI/UX Essentials';">
+                  <i class="fas fa-eye me-1"></i> Preview
+                </button>
+                <a href="https://ude.my/UC-2cc2a944-52d3-4744-9999-7776491bd944" target="_blank" class="btn btn-outline-pink btn-sm flex-grow-1 d-inline-flex align-items-center justify-content-center gap-1">
+                  <i class="fas fa-external-link-alt"></i> Verify
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        
+        <div class="carousel-item">
+          <div class="d-flex justify-content-center">
+            <div class="glass-card cert-card p-4 d-flex flex-column" style="max-width: 540px; width: 100%; min-height: 480px;">
+              <div class="cert-img-container mb-3" style="cursor: pointer; overflow: hidden; border-radius: 12px; border: 1px solid var(--border);"
+                   data-bs-toggle="modal" data-bs-target="#certModal" onclick="document.getElementById('modalCertImage').src='certificates/fullstack.jpg'; document.getElementById('certModalLabel').textContent='Full Stack Development';">
+                <img src="certificates/fullstack.jpg" alt="Full Stack Certificate" class="img-fluid cert-thumb" style="width: 100%; height: 200px; object-fit: cover;">
+              </div>
+              <div class="d-flex align-items-center mb-3">
+                <div class="edu-icon me-3"><i class="fas fa-certificate"></i></div>
+                <div>
+                  <h5 class="mb-0">Full Stack Development</h5>
+                  <small class="text-pink">Udemy Credential</small>
+                </div>
+              </div>
+              <p class="text-light flex-grow-1">Comprehensive developer bootcamp covering HTML5, CSS3, JavaScript, Node.js, Express, databases, and hosting stacks.</p>
+              <div class="mt-auto pt-3 d-flex gap-2">
+                <button class="btn btn-pink btn-sm flex-grow-1" data-bs-toggle="modal" data-bs-target="#certModal" onclick="document.getElementById('modalCertImage').src='certificates/fullstack.jpg'; document.getElementById('certModalLabel').textContent='Full Stack Development';">
+                  <i class="fas fa-eye me-1"></i> Preview
+                </button>
+                <a href="https://ude.my/UC-400b8fe4-b933-4b6e-871a-d036e225e206" target="_blank" class="btn btn-outline-pink btn-sm flex-grow-1 d-inline-flex align-items-center justify-content-center gap-1">
+                  <i class="fas fa-external-link-alt"></i> Verify
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        
+        <div class="carousel-item">
+          <div class="d-flex justify-content-center">
+            <div class="glass-card cert-card p-4 d-flex flex-column" style="max-width: 540px; width: 100%; min-height: 480px;">
+              <div class="cert-img-container mb-3" style="cursor: pointer; overflow: hidden; border-radius: 12px; border: 1px solid var(--border);"
+                   data-bs-toggle="modal" data-bs-target="#certModal" onclick="document.getElementById('modalCertImage').src='certificates/dbms.jpg'; document.getElementById('certModalLabel').textContent='Database Management Systems';">
+                <img src="certificates/dbms.jpg" alt="DBMS Certificate" class="img-fluid cert-thumb" style="width: 100%; height: 200px; object-fit: cover;">
+              </div>
+              <div class="d-flex align-items-center mb-3">
+                <div class="edu-icon me-3"><i class="fas fa-certificate"></i></div>
+                <div>
+                  <h5 class="mb-0">Database Management Systems</h5>
+                  <small class="text-pink">NPTEL · IIT Madras (Elite Score)</small>
+                </div>
+              </div>
+              <p class="text-light flex-grow-1">Completed formal university curriculum on DBMS, normalization, relational algebra, SQL constraints, transaction isolation, and index tuning.</p>
+              <div class="mt-auto pt-3">
+                <button class="btn btn-pink btn-sm w-100" data-bs-toggle="modal" data-bs-target="#certModal" onclick="document.getElementById('modalCertImage').src='certificates/dbms.jpg'; document.getElementById('certModalLabel').textContent='Database Management Systems';">
+                  <i class="fas fa-eye me-1"></i> View Preview
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        
+        <div class="carousel-item">
+          <div class="d-flex justify-content-center">
+            <div class="glass-card cert-card p-4 d-flex flex-column" style="max-width: 540px; width: 100%; min-height: 480px;">
+              <div class="cert-img-container mb-3" style="cursor: pointer; overflow: hidden; border-radius: 12px; border: 1px solid var(--border);"
+                   data-bs-toggle="modal" data-bs-target="#certModal" onclick="document.getElementById('modalCertImage').src='certificates/django.jpg'; document.getElementById('certModalLabel').textContent='Django Web Development';">
+                <img src="certificates/django.jpg" alt="Django Certificate" class="img-fluid cert-thumb" style="width: 100%; height: 200px; object-fit: cover;">
+              </div>
+              <div class="d-flex align-items-center mb-3">
+                <div class="edu-icon me-3"><i class="fas fa-certificate"></i></div>
+                <div>
+                  <h5 class="mb-0">Django Web Development</h5>
+                  <small class="text-pink">Udemy Credential</small>
+                </div>
+              </div>
+              <p class="text-light flex-grow-1">Full-stack backend training. Built dynamic web applications using Django's MTV system, database migrations, models, generic views, and custom templates.</p>
+              <div class="mt-auto pt-3 d-flex gap-2">
+                <button class="btn btn-pink btn-sm flex-grow-1" data-bs-toggle="modal" data-bs-target="#certModal" onclick="document.getElementById('modalCertImage').src='certificates/django.jpg'; document.getElementById('certModalLabel').textContent='Django Web Development';">
+                  <i class="fas fa-eye me-1"></i> Preview
+                </button>
+                <a href="https://ude.my/UC-f15358bc-a0cb-4bdc-90d7-3afbcd591c4e" target="_blank" class="btn btn-outline-pink btn-sm flex-grow-1 d-inline-flex align-items-center justify-content-center gap-1">
+                  <i class="fas fa-external-link-alt"></i> Verify
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        
+        <div class="carousel-item">
+          <div class="d-flex justify-content-center">
+            <div class="glass-card cert-card p-4 d-flex flex-column" style="max-width: 540px; width: 100%; min-height: 480px;">
+              <div class="cert-img-container mb-3" style="cursor: pointer; overflow: hidden; border-radius: 12px; border: 1px solid var(--border);"
+                   data-bs-toggle="modal" data-bs-target="#certModal" onclick="document.getElementById('modalCertImage').src='certificates/pygame.png'; document.getElementById('certModalLabel').textContent='Pygame Development';">
+                <img src="certificates/pygame.png" alt="Pygame Certificate" class="img-fluid cert-thumb" style="width: 100%; height: 200px; object-fit: cover;">
+              </div>
+              <div class="d-flex align-items-center mb-3">
+                <div class="edu-icon me-3"><i class="fas fa-certificate"></i></div>
+                <div>
+                  <h5 class="mb-0">Pygame Development</h5>
+                  <small class="text-pink">freeCodeCamp</small>
+                </div>
+              </div>
+              <p class="text-light flex-grow-1">Hands-on course building interactive mechanics, game state loops, sprites, and resource collisions using Python and Pygame.</p>
+              <div class="mt-auto pt-3">
+                <button class="btn btn-pink btn-sm w-100" data-bs-toggle="modal" data-bs-target="#certModal" onclick="document.getElementById('modalCertImage').src='certificates/pygame.png'; document.getElementById('certModalLabel').textContent='Pygame Development';">
+                  <i class="fas fa-eye me-1"></i> View Preview
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        
+        <div class="carousel-item">
+          <div class="d-flex justify-content-center">
+            <div class="glass-card cert-card p-4 d-flex flex-column" style="max-width: 540px; width: 100%; min-height: 480px;">
+              <div class="cert-img-container mb-3" style="cursor: pointer; overflow: hidden; border-radius: 12px; border: 1px solid var(--border);"
+                   data-bs-toggle="modal" data-bs-target="#certModal" onclick="document.getElementById('modalCertImage').src='certificates/c++.jpg'; document.getElementById('certModalLabel').textContent='Introduction to C++';">
+                <img src="certificates/c++.jpg" alt="C++ Certificate" class="img-fluid cert-thumb" style="width: 100%; height: 200px; object-fit: cover;">
+              </div>
+              <div class="d-flex align-items-center mb-3">
+                <div class="edu-icon me-3"><i class="fas fa-certificate"></i></div>
+                <div>
+                  <h5 class="mb-0">Introduction to C++</h5>
+                  <small class="text-pink">Simplilearn</small>
+                </div>
+              </div>
+              <p class="text-light flex-grow-1">Fundamental computer science course covering compiler concepts, pointer arithmetic, memory limits, structures, and arrays in C++.</p>
+              <div class="mt-auto pt-3 d-flex gap-2">
+                <button class="btn btn-pink btn-sm flex-grow-1" data-bs-toggle="modal" data-bs-target="#certModal" onclick="document.getElementById('modalCertImage').src='certificates/c++.jpg'; document.getElementById('certModalLabel').textContent='Introduction to C++';">
+                  <i class="fas fa-eye me-1"></i> Preview
+                </button>
+                <a href="https://simpli-web.app.link/e/ScUY2IWFv4b" target="_blank" class="btn btn-outline-pink btn-sm flex-grow-1 d-inline-flex align-items-center justify-content-center gap-1">
+                  <i class="fas fa-external-link-alt"></i> Verify
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      
+      <div class="carousel-controls-container">
+        <button class="carousel-control-prev" type="button" data-bs-target="#certificationsCarousel" data-bs-slide="prev">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#certificationsCarousel" data-bs-slide="next">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<div class="modal fade" id="certModal" tabindex="-1" aria-labelledby="certModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content glass-card" style="border: 1px solid var(--border); border-radius: 20px; overflow: hidden; background: var(--bg-card); backdrop-filter: blur(20px);">
+      <div class="modal-header" style="border-bottom: 1px solid var(--border); padding: 1rem 1.5rem;">
+        <h5 class="modal-title" id="certModalLabel" style="color: var(--text); font-weight: 700;">Certificate Preview</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center p-4">
+        <img id="modalCertImage" src="" alt="Certificate Preview" class="img-fluid rounded shadow" style="max-height: 70vh; object-fit: contain;">
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<section id="sticky-note" class="py-5">
+  <div class="container text-center">
+    <h2 class="section-title fade-up">Leave a Sticky Note</h2>
+    <p class="section-sub fade-up">Write a quick note and stick it on my virtual board!</p>
+    
+    <div class="row justify-content-center mt-5 align-items-center g-5">
+      
+      <div class="col-lg-6 d-flex justify-content-center fade-in">
+        <div class="chalkboard-container">
+          <div class="sticky-note-paper" style="background-image: url('certificates/sticky%20note.png');">
+            <div class="sticky-note-content-overlay d-flex flex-column">
+              
+              <div id="stickyPreviewText" class="sticky-preview-text">Start typing your note...</div>
+              <div id="stickyPreviewAuthor" class="sticky-preview-author">— Guest</div>
+              
+              
+              <div id="vintageLoadingOverlay" class="vintage-loading-overlay d-none d-flex flex-column align-items-center justify-content-center">
+                <div class="vintage-title">SENDING NOTE...</div>
+                <div class="vintage-progress-container mt-3">
+                  <div id="vintageProgressBar" class="vintage-progress-bar"></div>
+                </div>
+                <div id="vintageProgressPercentage" class="vintage-percentage mt-1">0%</div>
+              </div>
+              
+              
+              <div id="sentSuccessOverlay" class="sent-success-overlay d-none d-flex flex-column align-items-center justify-content-center">
+                <div class="smiley-doodle">☺</div>
+                <div class="sent-title mt-1">Sent!</div>
+                <div class="sent-subtitle text-center">Your note is stuck on my board!</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      
+      <div class="col-lg-6 d-flex justify-content-center align-items-center fade-in">
+        
+        <form id="stickyNoteForm" action="https://formspree.io/f/xwvdyegl" method="POST" class="glass-card p-4 text-start w-100" style="max-width: 480px;">
+          <input type="hidden" name="_subject" value="New Sticky Note from Portfolio!">
+          <input type="hidden" name="to" value="sindhusree016@gmail.com">
+          
+          <div class="mb-3">
+            <div class="d-flex justify-content-between align-items-center mb-1">
+              <label for="stickyMessage" class="form-label mb-0" style="color: var(--text); font-weight: 600;">Your Message</label>
+              <span id="stickyWordCounter" class="small" style="color: var(--text-muted); font-size: 0.8rem; transition: color 0.2s ease;">0 / 80 words</span>
+            </div>
+            <textarea id="stickyMessage" name="message" class="form-control" rows="3" placeholder="Write a brief note (max 80 words)..." required style="background: var(--bg-card); color: var(--text); border: 1px solid var(--border); border-radius: 10px;"></textarea>
+          </div>
+          
+          <div class="mb-3">
+            <label for="stickyAuthor" class="form-label" style="color: var(--text); font-weight: 600;">Your Name / Signature</label>
+            <input type="text" id="stickyAuthor" name="author" class="form-control" placeholder="Anonymous / Recruiter" required style="background: var(--bg-card); color: var(--text); border: 1px solid var(--border); border-radius: 10px;">
+          </div>
+          
+          <button type="submit" class="btn btn-pink w-100 d-flex align-items-center justify-content-center gap-2 mt-4" style="border-radius: 20px;">
+            <i class="fas fa-thumbtack"></i> Send Note
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<footer class="py-5 text-center glass-footer">
+  <div class="container">
+    <p class="footer-name mb-2">Sindhusree</p>
+    <div class="footer-links mb-3">
+      <a href="mailto:sindhusree016@gmail.com"><i class="fas fa-envelope"></i></a>
+      <a href="https://github.com/literallysindhu" target="_blank"><i class="fab fa-github"></i></a>
+      <a href="https://linkedin.com/in/sindhusree" target="_blank"><i class="fab fa-linkedin"></i></a>
+      <a href="https://codolio.com/profile/literally.sindhu" target="_blank"><i class="fas fa-code"></i></a>
+    </div>
+    <a href="SindhusreeResume.pdf" download class="btn btn-download mb-3"><i class="fas fa-download me-2"></i>Download Resume</a>
+    <p class="mb-0 footer-copy">Designed & Built with 💖 by Sindhu © 2026</p>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script src="main.js" defer></script>
+</body>
+</html>
+

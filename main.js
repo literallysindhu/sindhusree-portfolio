@@ -1,0 +1,208 @@
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+
+const navbar = document.querySelector('.navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 50);
+});
+
+const fadeObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('visible');
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.fade-up, .fade-in, .fade-in-delay').forEach(el => fadeObserver.observe(el));
+
+const gradeObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.querySelectorAll('.grade-fill').forEach(bar => {
+        bar.style.transition = 'width 1.2s cubic-bezier(0.4, 0, 0.2, 1)';
+        bar.style.width = bar.getAttribute('style').match(/width:\s*(\d+%)/)[1];
+      });
+    }
+  });
+}, { threshold: 0.3 });
+
+document.querySelectorAll('.grade-bars').forEach(el => gradeObserver.observe(el));
+
+document.querySelectorAll('a[href="SindhusreeResume.pdf"]').forEach(link => {
+  link.addEventListener('click', function(e) {
+    e.preventDefault();
+    window.open(this.href, '_blank');
+    const a = document.createElement('a');
+    a.href = this.href;
+    a.download = 'SindhusreeResume.pdf';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  });
+});
+
+window.addEventListener('load', () => {
+  const stage = document.getElementById('polaroidStage');
+  if (!stage) return;
+  setTimeout(() => {
+    stage.querySelectorAll('.polaroid-item').forEach(p => {
+      p.classList.add('in');
+      p.addEventListener('animationend', function onIn(e) {
+        if (e.animationName === 'fadeUpIn') {
+          p.classList.add('floating');
+          p.removeEventListener('animationend', onIn);
+        }
+      });
+    });
+  }, 300);
+});
+
+document.getElementById('themeToggle').addEventListener('click', () => {
+  const root = document.documentElement;
+  const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  root.classList.add('theme-transitioning');
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      root.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+      root.addEventListener('transitionend', () => root.classList.remove('theme-transitioning'), { once: true });
+    });
+  });
+});
+
+const msgInput     = document.getElementById('stickyMessage');
+const authorInput  = document.getElementById('stickyAuthor');
+const previewText  = document.getElementById('stickyPreviewText');
+const previewBy    = document.getElementById('stickyPreviewAuthor');
+const noteForm     = document.getElementById('stickyNoteForm');
+
+function clearSendState() {
+  const loading  = document.getElementById('vintageLoadingOverlay');
+  const success  = document.getElementById('sentSuccessOverlay');
+  const bar      = document.getElementById('vintageProgressBar');
+  const pct      = document.getElementById('vintageProgressPercentage');
+  if (loading)  loading.classList.add('d-none');
+  if (success)  success.classList.add('d-none');
+  if (bar)      bar.style.width = '0%';
+  if (pct)      pct.textContent = '0%';
+  previewText.classList.remove('d-none');
+  previewBy.classList.remove('d-none');
+}
+
+if (msgInput && authorInput && previewText && previewBy) {
+  msgInput.addEventListener('input', () => {
+    clearSendState();
+    let text  = msgInput.value;
+    let words = text.trim().split(/\s+/).filter(Boolean);
+
+    if (words.length > 80) {
+      text  = text.split(/\s+/).slice(0, 80).join(' ');
+      words = text.trim().split(/\s+/).filter(Boolean);
+      msgInput.value = text;
+    }
+
+    const count   = words.length;
+    const counter = document.getElementById('stickyWordCounter');
+    if (counter) {
+      counter.textContent  = `${count} / 80 words`;
+      counter.style.color  = count >= 70 ? '#e8527a' : 'var(--text-muted)';
+      counter.style.fontWeight = count >= 70 ? '700' : 'normal';
+    }
+
+    let size = 2.1;
+    if      (count > 60) size = 1.15;
+    else if (count > 40) size = 1.35;
+    else if (count > 20) size = 1.55;
+    else if (count > 8)  size = 1.8;
+
+    previewText.style.fontSize = `${size}rem`;
+    previewText.textContent    = text || 'Start typing your note...';
+  });
+
+  authorInput.addEventListener('input', () => {
+    clearSendState();
+    previewBy.textContent = authorInput.value ? `— ${authorInput.value}` : '— Guest';
+  });
+}
+
+if (noteForm) {
+  noteForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const loading = document.getElementById('vintageLoadingOverlay');
+    const success = document.getElementById('sentSuccessOverlay');
+    const bar     = document.getElementById('vintageProgressBar');
+    const pct     = document.getElementById('vintageProgressPercentage');
+
+    if (!loading || !bar || !pct) return;
+
+    previewText.classList.add('d-none');
+    previewBy.classList.add('d-none');
+    loading.classList.remove('d-none');
+
+    let progress = 0;
+    const tick = 125;
+    const step = 100 / (2500 / tick);
+
+    const timer = setInterval(() => {
+      progress = Math.min(progress + step, 100);
+      bar.style.width   = `${progress}%`;
+      pct.textContent   = `${Math.round(progress)}%`;
+
+      if (progress >= 100) {
+        clearInterval(timer);
+        loading.classList.add('d-none');
+        if (success) success.classList.remove('d-none');
+        noteForm.reset();
+        const counter = document.getElementById('stickyWordCounter');
+        if (counter) {
+          counter.textContent  = '0 / 80 words';
+          counter.style.color  = 'var(--text-muted)';
+          counter.style.fontWeight = 'normal';
+        }
+      }
+    }, tick);
+
+    fetch(noteForm.action, {
+      method: 'POST',
+      body: new FormData(noteForm),
+      headers: { Accept: 'application/json' }
+    }).catch(err => console.error('Send failed:', err));
+  });
+}
+
+const nudge = document.getElementById('themeNudge');
+const nudgeDismiss = document.getElementById('themeNudgeDismiss');
+
+function hideNudge() {
+  nudge.classList.remove('visible');
+  nudge.classList.add('hiding');
+  setTimeout(() => nudge.classList.remove('hiding'), 400);
+}
+
+if (nudge && nudgeDismiss) {
+  const isLight = document.documentElement.getAttribute('data-theme') !== 'dark';
+  const alreadyDismissed = sessionStorage.getItem('nudgeDismissed');
+
+  if (isLight && !alreadyDismissed) {
+    setTimeout(() => nudge.classList.add('visible'), 5000);
+  }
+
+  nudgeDismiss.addEventListener('click', () => {
+    sessionStorage.setItem('nudgeDismissed', '1');
+    hideNudge();
+  });
+
+  document.getElementById('themeToggle').addEventListener('click', () => {
+    setTimeout(() => {
+      if (document.documentElement.getAttribute('data-theme') === 'dark') {
+        sessionStorage.setItem('nudgeDismissed', '1');
+        hideNudge();
+      }
+    }, 50);
+  }, true);
+}
