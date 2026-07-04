@@ -99,6 +99,88 @@
       --r: 6deg !important;
     }
   }
+
+  .hero-carousel {
+    display: none;
+    width: 100%;
+    max-width: 420px;
+    margin: 0 auto;
+  }
+
+  .hero-carousel .carousel-inner {
+    border-radius: 28px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.78);
+    box-shadow: 0 22px 50px rgba(0,0,0,0.16);
+  }
+
+  .hero-carousel .carousel-item img {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    display: block;
+  }
+
+  .hero-carousel .carousel-caption {
+    position: absolute;
+    bottom: 0.85rem;
+    left: 0.85rem;
+    right: 0.85rem;
+    background: rgba(20, 20, 20, 0.55);
+    padding: 0.75rem 1rem;
+    border-radius: 18px;
+    color: #fff;
+    font-size: 0.95rem;
+    line-height: 1.35;
+    backdrop-filter: blur(8px);
+  }
+
+  @media (max-width: 992px) {
+    .polaroid-stage {
+      display: none;
+    }
+    .hero-carousel {
+      display: block;
+    }
+    .hero-section {
+      padding: 5.5rem 0 2.5rem;
+      min-height: auto;
+    }
+    .hero-section .row {
+      gap: 2rem;
+      align-items: flex-start;
+    }
+    .hero-section .col-lg-5 {
+      text-align: center;
+    }
+    .hero-section .hero-sub {
+      max-width: 100%;
+    }
+    .theme-nudge {
+      right: 1rem;
+      top: 5rem;
+      max-width: calc(100% - 2rem);
+    }
+    .navbar-collapse {
+      background: rgba(250, 227, 239, 0.95);
+      backdrop-filter: blur(18px);
+      border-radius: 1rem;
+      margin-top: 1rem;
+      padding: 1rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hero-carousel {
+      max-width: 100%;
+    }
+    .hero-carousel .carousel-caption {
+      font-size: 0.9rem;
+      bottom: 0.75rem;
+      left: 0.75rem;
+      right: 0.75rem;
+    }
+  }
 </style>
 </head>
 <body>
@@ -113,7 +195,7 @@
 <nav class="navbar navbar-expand-lg navbar-fixed-top">
   <div class="container-fluid px-4">
     <a class="navbar-brand" href="#">🎀 Sindhu</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
@@ -171,7 +253,7 @@
         </div>
       </div>
       <div class="col-lg-7 text-center mt-5 mt-lg-0 d-flex justify-content-center fade-in-delay hero-visual-col">
-        <div class="polaroid-stage" id="polaroidStage">
+        <div class="polaroid-stage d-none d-lg-block" id="polaroidStage">
 
           <img src="polaroid-leader.png" alt="A Leader" class="polaroid-item"
                style="--w:52%; --tx:-75%; --ty:20px; --s:0.94; --r:-8deg; --fd:0s; --bd:0s; --fy:20px; left:50%; z-index:1;">
@@ -182,6 +264,37 @@
           <img src="polaroid-student.png" alt="A Student" class="polaroid-item"
                style="--w:52%; --tx:75%; --ty:22px; --s:0.94; --r:9deg; --fd:0.3s; --bd:0.5s; --fy:22px; left:50%; z-index:2;">
 
+        </div>
+
+        <div id="heroCarousel" class="carousel slide hero-carousel d-lg-none" data-bs-ride="carousel" data-bs-interval="4500">
+          <div class="carousel-inner rounded-4 overflow-hidden shadow-lg">
+            <div class="carousel-item active">
+              <img src="polaroid-leader.png" class="d-block w-100" alt="A Leader">
+              <div class="carousel-caption d-none d-sm-block">
+                <p>Leader — crafting creative, confident growth.</p>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <img src="polaroid-builder.png" class="d-block w-100" alt="A Builder">
+              <div class="carousel-caption d-none d-sm-block">
+                <p>Builder — creating polished digital experiences.</p>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <img src="polaroid-student.png" class="d-block w-100" alt="A Student">
+              <div class="carousel-caption d-none d-sm-block">
+                <p>Student — always learning, always improving.</p>
+              </div>
+            </div>
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
         </div>
       </div>
     </div>

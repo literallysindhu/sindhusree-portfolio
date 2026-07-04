@@ -11,6 +11,19 @@ window.addEventListener('scroll', () => {
   navbar.classList.toggle('scrolled', window.scrollY > 50);
 });
 
+const navCollapseEl = document.getElementById('navbarNav');
+if (navCollapseEl) {
+  const navLinks = navCollapseEl.querySelectorAll('.nav-link');
+  const bsCollapse = new bootstrap.Collapse(navCollapseEl, { toggle: false });
+  navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      if (window.getComputedStyle(document.querySelector('.navbar-toggler')).display !== 'none') {
+        bsCollapse.hide();
+      }
+    });
+  });
+}
+
 const fadeObserver = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if (entry.isIntersecting) entry.target.classList.add('visible');
