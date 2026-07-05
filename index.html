@@ -21,7 +21,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <!-- Custom layout styles are loaded from main.css -->
 </head>
-<body>
+<body data-bs-spy="scroll" data-bs-target="#navbarNav" data-bs-offset="100">
 
 
 <div id="themeNudge" class="theme-nudge" aria-live="polite" role="tooltip">
@@ -94,14 +94,20 @@
       <div class="col-lg-7 text-center mt-5 mt-lg-0 d-flex justify-content-center fade-in-delay hero-visual-col">
         <div class="polaroid-stage d-none d-lg-block" id="polaroidStage">
 
-          <img src="polaroid-leader.png" alt="A Leader" class="polaroid-item"
+          <div class="polaroid-item"
                style="--w:52%; --tx:-75%; --ty:20px; --s:0.94; --r:-8deg; --fd:0s; --bd:0s; --fy:20px; left:50%; z-index:1;">
+            <img src="polaroid-leader.png" alt="A Leader">
+          </div>
 
-          <img src="polaroid-builder.png" alt="A Builder" class="polaroid-item"
+          <div class="polaroid-item"
                style="--w:56%; --tx:0%; --ty:-14px; --s:1; --r:3deg; --fd:0.15s; --bd:0.25s; --fy:-14px; left:50%; z-index:3;">
+            <img src="polaroid-builder.png" alt="A Builder">
+          </div>
 
-          <img src="polaroid-student.png" alt="A Student" class="polaroid-item"
+          <div class="polaroid-item"
                style="--w:52%; --tx:75%; --ty:22px; --s:0.94; --r:9deg; --fd:0.3s; --bd:0.5s; --fy:22px; left:50%; z-index:2;">
+            <img src="polaroid-student.png" alt="A Student">
+          </div>
 
         </div>
 
@@ -1529,6 +1535,11 @@
     <p class="mb-0 footer-copy">Designed & Built with 💖 by Sindhu © 2026</p>
   </div>
 </footer>
+
+<!-- Back to Top Button -->
+<button id="backToTop" class="back-to-top" aria-label="Back to Top">
+  <i class="fas fa-chevron-up"></i>
+</button>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 <script src="main.js" defer></script>
