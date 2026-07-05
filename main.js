@@ -300,3 +300,46 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+// ===== Custom Scrollspy Logic =====
+document.addEventListener('DOMContentLoaded', () => {
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.navbar-collapse .nav-link');
+
+  function updateActiveLink() {
+    let currentSectionId = '';
+    const scrollPosition = window.scrollY + 180; // 180px offset for dynamic navbar height
+
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.offsetHeight;
+      if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+        currentSectionId = section.getAttribute('id');
+      }
+    });
+
+    // Fallback: at the top of the page, keep 'about' highlighted
+    if (window.scrollY < 120) {
+      currentSectionId = 'about';
+    }
+
+    // Fallback: scrolled to the bottom of the page, highlight the last section
+    if ((window.innerHeight + window.scrollY) >= document.documentElement.scrollHeight - 50) {
+      if (sections.length > 0) {
+        currentSectionId = sections[sections.length - 1].getAttribute('id');
+      }
+    }
+
+    navLinks.forEach(link => {
+      const href = link.getAttribute('href');
+      if (href === `#${currentSectionId}`) {
+        link.classList.add('active');
+      } else {
+        link.classList.remove('active');
+      }
+    });
+  }
+
+  window.addEventListener('scroll', updateActiveLink, { passive: true });
+  updateActiveLink(); // run initially
+});
