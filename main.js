@@ -9,7 +9,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 const navbar = document.querySelector('.navbar');
 window.addEventListener('scroll', () => {
   navbar.classList.toggle('scrolled', window.scrollY > 50);
-});
+}, { passive: true });
 
 const navCollapseEl = document.getElementById('navbarNav');
 if (navCollapseEl) {
