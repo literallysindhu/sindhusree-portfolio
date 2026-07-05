@@ -45,6 +45,21 @@ const gradeObserver = new IntersectionObserver(entries => {
 
 document.querySelectorAll('.grade-bars').forEach(el => gradeObserver.observe(el));
 
+let nudge;
+let nudgeDismiss;
+let nudgeTimer;
+
+function scheduleThemeNudge(delay) {
+  if (!nudge) return;
+  const isLight = document.documentElement.getAttribute('data-theme') !== 'dark';
+  const alreadyDismissed = sessionStorage.getItem('nudgeDismissed');
+  if (isLight && !alreadyDismissed) {
+    nudgeTimer = setTimeout(() => {
+      nudge.classList.add('visible');
+    }, delay);
+  }
+}
+
 document.querySelectorAll('a[href="SindhusreeResume.pdf"]').forEach(link => {
   link.addEventListener('click', function(e) {
     e.preventDefault();
@@ -60,18 +75,38 @@ document.querySelectorAll('a[href="SindhusreeResume.pdf"]').forEach(link => {
 
 window.addEventListener('load', () => {
   const stage = document.getElementById('polaroidStage');
-  if (!stage) return;
-  setTimeout(() => {
-    stage.querySelectorAll('.polaroid-item').forEach(p => {
-      p.classList.add('in');
-      p.addEventListener('animationend', function onIn(e) {
-        if (e.animationName === 'fadeUpIn') {
-          p.classList.add('floating');
-          p.removeEventListener('animationend', onIn);
+  if (stage) {
+    stage.classList.add('js-enabled');
+    setTimeout(() => {
+      const items = Array.from(stage.querySelectorAll('.polaroid-item'));
+      let completed = 0;
+
+      const checkComplete = () => {
+        completed += 1;
+        if (completed === items.length) {
+          scheduleThemeNudge(2000);
         }
+      };
+
+      items.forEach(p => {
+        p.classList.add('in');
+        p.addEventListener('animationend', function onIn(e) {
+          if (e.animationName === 'fadeUpIn') {
+            p.classList.add('floating');
+            p.removeEventListener('animationend', onIn);
+            checkComplete();
+          }
+        });
       });
-    });
-  }, 300);
+
+      if (items.length === 0) {
+        scheduleThemeNudge(2000);
+      }
+    }, 300);
+  } else {
+    scheduleThemeNudge(2000);
+  }
+
 });
 
 document.getElementById('themeToggle').addEventListener('click', () => {
@@ -188,10 +223,14 @@ if (noteForm) {
   });
 }
 
-const nudge = document.getElementById('themeNudge');
-const nudgeDismiss = document.getElementById('themeNudgeDismiss');
+nudge = document.getElementById('themeNudge');
+nudgeDismiss = document.getElementById('themeNudgeDismiss');
 
 function hideNudge() {
+  if (nudgeTimer) {
+    clearTimeout(nudgeTimer);
+    nudgeTimer = null;
+  }
   nudge.classList.remove('visible');
   nudge.classList.add('hiding');
   setTimeout(() => nudge.classList.remove('hiding'), 400);
@@ -202,20 +241,44 @@ if (nudge && nudgeDismiss) {
   const alreadyDismissed = sessionStorage.getItem('nudgeDismissed');
 
   if (isLight && !alreadyDismissed) {
-    setTimeout(() => nudge.classList.add('visible'), 5000);
+    nudgeDismiss.addEventListener('click', () => {
+      sessionStorage.setItem('nudgeDismissed', '1');
+      hideNudge();
+    });
+
+    document.getElementById('themeToggle').addEventListener('click', () => {
+      setTimeout(() => {
+        if (document.documentElement.getAttribute('data-theme') === 'dark') {
+          sessionStorage.setItem('nudgeDismissed', '1');
+          hideNudge();
+        }
+      }, 50);
+    }, true);
   }
-
-  nudgeDismiss.addEventListener('click', () => {
-    sessionStorage.setItem('nudgeDismissed', '1');
-    hideNudge();
-  });
-
-  document.getElementById('themeToggle').addEventListener('click', () => {
-    setTimeout(() => {
-      if (document.documentElement.getAttribute('data-theme') === 'dark') {
-        sessionStorage.setItem('nudgeDismissed', '1');
-        hideNudge();
-      }
-    }, 50);
-  }, true);
 }
+
+// ===== Skills Explorer Desktop Tab Switcher =====
+document.addEventListener('DOMContentLoaded', () => {
+  const skillsNavItems = document.querySelectorAll('.skills-nav-item');
+  const skillsPanels = document.querySelectorAll('.skills-panel');
+
+  if (skillsNavItems.length > 0 && skillsPanels.length > 0) {
+    skillsNavItems.forEach(item => {
+      item.addEventListener('click', () => {
+        const targetCat = item.getAttribute('data-category');
+        
+        // Update nav active class
+        skillsNavItems.forEach(nav => nav.classList.remove('active'));
+        item.classList.add('active');
+        
+        // Update panels visibility
+        skillsPanels.forEach(panel => {
+          panel.classList.remove('active');
+          if (panel.id === `panel-${targetCat}`) {
+            panel.classList.add('active');
+          }
+        });
+      });
+    });
+  }
+});

@@ -19,216 +19,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&family=Caveat:wght@700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<style>
-  /* ===== Polaroid Fan Row — Hero Visual ===== */
-  .hero-visual-col {
-    position: relative;
-  }
-  .polaroid-stage {
-    position: relative;
-    width: 100%;
-    max-width: 820px;
-    height: 600px;
-    margin: 0 auto;
-  }
-
-  .polaroid-item {
-    position: absolute;
-    top: 50%;
-    width: var(--w, 34%);
-    filter: drop-shadow(0 14px 24px rgba(0,0,0,.3));
-    transform: translate(calc(-50% + var(--tx)), -50%) translateY(var(--ty)) rotate(var(--r)) scale(var(--s));
-    opacity: 0;
-    will-change: transform;
-  }
-  .polaroid-item.in {
-    animation: fadeUpIn 0.75s cubic-bezier(.2,1,.3,1) forwards;
-    animation-delay: var(--fd, 0s);
-  }
-  .polaroid-item.floating {
-    opacity: 1;
-    animation: floatBob 4.5s ease-in-out infinite;
-    animation-delay: var(--bd, 0s);
-  }
-  .polaroid-item.floating:hover {
-    animation: none;
-    transition: transform .25s ease;
-    transform: translate(calc(-50% + var(--tx)), -50%) translateY(var(--fy, 0px)) rotate(var(--r)) scale(1.06);
-    z-index: 10 !important;
-  }
-  @keyframes fadeUpIn {
-    0%   { transform: translate(-50%, -50%) translateY(40px) rotate(0deg) scale(0.85); opacity: 0; }
-    100% { transform: translate(calc(-50% + var(--tx)), -50%) translateY(var(--ty)) rotate(var(--r)) scale(var(--s)); opacity: 1; }
-  }
-  @keyframes floatBob {
-    0%, 100% { transform: translate(calc(-50% + var(--tx)), -50%) translateY(var(--ty)) rotate(var(--r)) scale(var(--s)); }
-    50%      { transform: translate(calc(-50% + var(--tx)), -50%) translateY(calc(var(--ty) - 10px)) rotate(calc(var(--r) + 1deg)) scale(var(--s)); }
-  }
-
-  @media (max-width: 991px) {
-    .polaroid-stage { max-width: 480px; height: 460px; }
-  }
-  @media (max-width: 768px) {
-    .polaroid-item[src*="leader"] {
-      --tx: -55% !important;
-      --w: 48% !important;
-    }
-    .polaroid-item[src*="builder"] {
-      --w: 52% !important;
-    }
-    .polaroid-item[src*="student"] {
-      --tx: 55% !important;
-      --w: 48% !important;
-    }
-  }
-  @media (max-width: 480px) {
-    .polaroid-stage {
-      height: 350px;
-    }
-    .polaroid-item[src*="leader"] {
-      --tx: -42% !important;
-      --w: 54% !important;
-      --r: -6deg !important;
-    }
-    .polaroid-item[src*="builder"] {
-      --w: 58% !important;
-    }
-    .polaroid-item[src*="student"] {
-      --tx: 42% !important;
-      --w: 54% !important;
-      --r: 6deg !important;
-    }
-  }
-
-  .navbar-toggler {
-    border-color: rgba(65, 47, 66, 0.2);
-    background: rgba(255, 255, 255, 0.12);
-    transition: all 0.25s ease;
-  }
-
-  .navbar-toggler:hover {
-    background: rgba(255, 255, 255, 0.2);
-  }
-
-  .navbar-toggler-icon {
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(65,47,66,0.9)' stroke-width='2' stroke-linecap='round' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-  }
-
-  [data-theme="dark"] .navbar-toggler {
-    border-color: rgba(255, 255, 255, 0.25);
-    background: rgba(255, 255, 255, 0.08);
-  }
-
-  [data-theme="dark"] .navbar-toggler:hover {
-    background: rgba(255, 255, 255, 0.15);
-  }
-
-  [data-theme="dark"] .navbar-toggler-icon {
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23fff' stroke-width='2' stroke-linecap='round' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-  }
-
-  .hero-carousel {
-    display: none;
-    width: 100%;
-    max-width: 420px;
-    margin: 0 auto;
-  }
-
-  .hero-carousel .carousel-inner {
-    border-radius: 28px;
-    overflow: hidden;
-    background: rgba(255, 255, 255, 0.78);
-    box-shadow: 0 22px 50px rgba(0,0,0,0.16);
-  }
-
-  .hero-carousel .carousel-item {
-    transition: transform 0.55s ease-in-out;
-  }
-
-  .hero-carousel .carousel-item img {
-    width: 100%;
-    aspect-ratio: 4 / 5;
-    object-fit: cover;
-    display: block;
-  }
-
-  .hero-carousel .carousel-caption {
-    position: absolute;
-    bottom: 0.85rem;
-    left: 0.85rem;
-    right: 0.85rem;
-    background: rgba(20, 20, 20, 0.55);
-    padding: 0.75rem 1rem;
-    border-radius: 18px;
-    color: #fff;
-    font-size: 0.95rem;
-    line-height: 1.35;
-    backdrop-filter: blur(8px);
-  }
-
-  @media (max-width: 992px) {
-    .polaroid-stage {
-      display: none;
-    }
-    .hero-carousel {
-      display: block;
-    }
-    .hero-section {
-      padding: 5.5rem 0 2.5rem;
-      min-height: auto;
-    }
-    .hero-section .row {
-      gap: 2rem;
-      align-items: flex-start;
-    }
-    .hero-section .col-lg-5 {
-      text-align: center;
-    }
-    .hero-section .hero-sub {
-      max-width: 100%;
-    }
-    .theme-nudge {
-      right: 1rem;
-      top: 5rem;
-      max-width: calc(100% - 2rem);
-    }
-    .navbar-collapse {
-      background: rgba(250, 227, 239, 0.95);
-      backdrop-filter: blur(18px);
-      border-radius: 1rem;
-      margin-top: 1rem;
-      padding: 1rem;
-    }
-    [data-theme="dark"] .navbar-collapse {
-      background: rgba(10, 10, 18, 0.92);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-    }
-    [data-theme="dark"] .navbar-collapse .nav-link {
-      color: rgba(255, 255, 255, 0.88) !important;
-    }
-    [data-theme="dark"] .navbar-collapse .nav-link:hover {
-      background: rgba(255, 255, 255, 0.08) !important;
-    }
-  }
-
-  @media (max-width: 768px) {
-    .hero-carousel {
-      max-width: 340px;
-    }
-    .hero-carousel .carousel-caption {
-      font-size: 0.85rem;
-      bottom: 0.6rem;
-      left: 0.6rem;
-      right: 0.6rem;
-    }
-    .hero-carousel .carousel-inner {
-      box-shadow: 0 14px 30px rgba(0,0,0,0.12);
-    }
-    .navbar-toggler {
-      padding: 0.5rem 0.75rem;
-    }
-  }
-</style>
+  <!-- Custom layout styles are loaded from main.css -->
 </head>
 <body>
 
@@ -296,6 +87,7 @@
           <a href="https://github.com/literallysindhu" target="_blank" class="btn btn-pink"><i class="fab fa-github me-2"></i>GitHub</a>
           <a href="https://linkedin.com/in/sindhusree" target="_blank" class="btn btn-pink"><i class="fab fa-linkedin me-2"></i>LinkedIn</a>
           <a href="https://codolio.com/profile/literally.sindhu" target="_blank" class="btn btn-pink"><i class="fas fa-code me-2"></i>Codolio</a>
+          <a href="https://www.instagram.com/builtbysindhu" target="_blank" class="btn btn-pink"><i class="fa-brands fa-instagram"></i>Instagram</a>
           <a href="SindhusreeResume.pdf" download class="btn btn-download"><i class="fas fa-download me-2"></i>Download Resume</a>
         </div>
       </div>
@@ -314,34 +106,22 @@
         </div>
 
         <div id="heroCarousel" class="carousel slide hero-carousel d-lg-none" data-bs-ride="carousel" data-bs-interval="4500" data-bs-touch="true">
-          <div class="carousel-inner rounded-4 overflow-hidden shadow-lg">
-            <div class="carousel-item active">
+          <div class="carousel-inner">
+            <div class="carousel-item active" style="--r: -3deg; --bd: 0s;">
               <img src="polaroid-leader.png" class="d-block w-100" alt="A Leader">
-              <div class="carousel-caption d-none d-sm-block">
-                <p>Leader — crafting creative, confident growth.</p>
-              </div>
             </div>
-            <div class="carousel-item">
+            <div class="carousel-item" style="--r: 2.5deg; --bd: 0.25s;">
               <img src="polaroid-builder.png" class="d-block w-100" alt="A Builder">
-              <div class="carousel-caption d-none d-sm-block">
-                <p>Builder — creating polished digital experiences.</p>
-              </div>
             </div>
-            <div class="carousel-item">
+            <div class="carousel-item" style="--r: -1.5deg; --bd: 0.5s;">
               <img src="polaroid-student.png" class="d-block w-100" alt="A Student">
-              <div class="carousel-caption d-none d-sm-block">
-                <p>Student — always learning, always improving.</p>
-              </div>
             </div>
           </div>
-          <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
+          <div class="carousel-indicators" style="position: relative; margin-top: 15px; bottom: 0; z-index: 5;">
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+          </div>
         </div>
       </div>
     </div>
@@ -579,102 +359,803 @@
 
 <section id="skills" class="py-5">
   <div class="container">
-    <h2 class="section-title fade-up">Technical Skills</h2>
-    <p class="section-sub fade-up">My core technical strengths and practical experience</p>
-    
-    <div class="row mt-5 g-4">
+    <div class="text-center text-md-start mb-5">
+      <h2 class="section-title fade-up">Technical Skills</h2>
+      <p class="section-sub fade-up">A premium, evidence-based showcase of my engineering capabilities, project experience, and technical focus.</p>
+    </div>
 
-      
-      <div class="col-md-6 fade-up">
-        <div class="skill-card glass-card p-4 h-100 d-flex flex-column">
-          <div class="skill-header d-flex align-items-center mb-3">
-            <div class="skill-icon me-3"><i class="fas fa-code"></i></div>
-            <h4 class="mb-0">Programming Languages</h4>
-          </div>
-          <div class="skills-grid mb-3 flex-grow-1">
-            <span class="skill-pill"><i class="fab fa-python text-primary me-1"></i> Python</span>
-            <span class="skill-pill"><i class="fas fa-terminal text-info me-1"></i> C++</span>
-            <span class="skill-pill"><i class="fab fa-js text-warning me-1"></i> JavaScript</span>
-            <span class="skill-pill"><i class="fab fa-js text-primary me-1"></i> TypeScript</span>
-            <span class="skill-pill"><i class="fas fa-terminal me-1"></i> C</span>
-            <span class="skill-pill"><i class="fab fa-java text-danger me-1"></i> Java (Basic)</span>
-          </div>
-          <p class="text-light-dark small mb-0"><i class="fas fa-info-circle me-1"></i> Applied in competitive programming contests (CodeChef 1200+), coursework, and full-stack web builds.</p>
+    <!-- Part 1: Core Engineering Pillars -->
+    <div class="row g-4 mb-5 fade-up">
+      <div class="col-12">
+        <h3 class="skills-subtitle mb-4 text-center text-md-start">
+          <i class="fas fa-cubes text-pink me-2"></i> Engineering Pillars
+        </h3>
+      </div>
+      <!-- 6 Pillars -->
+      <div class="col-md-6 col-lg-4">
+        <div class="pillar-card glass-card p-4 h-100">
+          <div class="pillar-icon-box"><i class="fas fa-brain"></i></div>
+          <h4 class="pillar-title">Problem Solving</h4>
+          <p class="pillar-text">Solved 500+ algorithmic challenges on CodeChef (1200+ rating) and LeetCode, with a strong focus on runtime complexity and optimal structures.</p>
         </div>
       </div>
-
-      
-      <div class="col-md-6 fade-up">
-        <div class="skill-card glass-card p-4 h-100 d-flex flex-column">
-          <div class="skill-header d-flex align-items-center mb-3">
-            <div class="skill-icon me-3"><i class="fas fa-desktop"></i></div>
-            <h4 class="mb-0">Web & Full-Stack</h4>
-          </div>
-          <div class="skills-grid mb-3 flex-grow-1">
-            <span class="skill-pill"><i class="fab fa-react text-info me-1"></i> React.js</span>
-            <span class="skill-pill"><i class="fab fa-node-js text-success me-1"></i> Node.js</span>
-            <span class="skill-pill"><i class="fas fa-fire-alt text-danger me-1"></i> Django</span>
-            <span class="skill-pill"><i class="fas fa-fire text-warning me-1"></i> Firebase</span>
-            <span class="skill-pill"><i class="fas fa-database text-info me-1"></i> SQL / PostgreSQL</span>
-            <span class="skill-pill"><i class="fab fa-bootstrap text-purple me-1"></i> Bootstrap</span>
-          </div>
-          <p class="text-light-dark small mb-0"><i class="fas fa-info-circle me-1"></i> Designed dynamic frontend states, relational schemas, user authentication, and backend API routes.</p>
+      <div class="col-md-6 col-lg-4">
+        <div class="pillar-card glass-card p-4 h-100">
+          <div class="pillar-icon-box"><i class="fas fa-drafting-compass"></i></div>
+          <h4 class="pillar-title">Software Engineering</h4>
+          <p class="pillar-text">Building clean, modular, and maintainable codebases with structured version control, package management, and responsive designs.</p>
         </div>
       </div>
-
-      
-      <div class="col-md-6 fade-up">
-        <div class="skill-card glass-card p-4 h-100 d-flex flex-column">
-          <div class="skill-header d-flex align-items-center mb-3">
-            <div class="skill-icon me-3"><i class="fas fa-tools"></i></div>
-            <h4 class="mb-0">Tools & Design</h4>
-          </div>
-          <div class="skills-grid mb-3 flex-grow-1">
-            <span class="skill-pill"><i class="fab fa-figma text-danger me-1"></i> Figma (UI/UX)</span>
-            <span class="skill-pill"><i class="fab fa-git-alt text-danger me-1"></i> Git / GitHub</span>
-            <span class="skill-pill"><i class="fas fa-bolt text-warning me-1"></i> Vite / npm</span>
-            <span class="skill-pill"><i class="fas fa-gamepad text-success me-1"></i> Pygame</span>
-            <span class="skill-pill"><i class="fas fa-paint-brush text-primary me-1"></i> Graphic Design</span>
-            <span class="skill-pill"><i class="fas fa-video text-warning me-1"></i> Video Editing</span>
-          </div>
-          <p class="text-light-dark small mb-0"><i class="fas fa-info-circle me-1"></i> Managed version control workflows, UI wireframing, game logic loops, and campus community graphic materials.</p>
+      <div class="col-md-6 col-lg-4">
+        <div class="pillar-card glass-card p-4 h-100">
+          <div class="pillar-icon-box"><i class="fas fa-wand-magic-sparkles"></i></div>
+          <h4 class="pillar-title">UI/UX Design</h4>
+          <p class="pillar-text">Figma-first design process, wireframing interactive user flows, typography alignment, and asset creation (evident in Questoria UI).</p>
         </div>
       </div>
-
-      
-      <div class="col-md-6 fade-up">
-        <div class="skill-card glass-card p-4 h-100 d-flex flex-column">
-          <div class="skill-header d-flex align-items-center mb-3">
-            <div class="skill-icon me-3"><i class="fas fa-language"></i></div>
-            <h4 class="mb-0">Languages Spoken</h4>
-          </div>
-          <div class="skills-grid mb-3 flex-grow-1">
-            <span class="skill-pill"> English <strong class="badge-prof">Fluent</strong></span>
-            <span class="skill-pill"> Tamil <strong class="badge-prof">Fluent</strong></span>
-            <span class="skill-pill"> Hindi <strong class="badge-prof">Conversational</strong></span>
-            <span class="skill-pill"> Kannada <strong class="badge-prof">Conversational</strong></span>
-            <span class="skill-pill"><span class="japanese-badge"><i class="fas fa-globe-asia me-1"></i> Japanese (O Grade)</span></span>
-          </div>
-          <p class="text-light-dark small mb-0"><i class="fas fa-info-circle me-1"></i> Excellent written and verbal communication, certified academic distinction in Japanese.</p>
+      <div class="col-md-6 col-lg-4">
+        <div class="pillar-card glass-card p-4 h-100">
+          <div class="pillar-icon-box"><i class="fas fa-layer-group"></i></div>
+          <h4 class="pillar-title">Full Stack Development</h4>
+          <p class="pillar-text">Connecting client states (React/TypeScript) with database systems (Firebase/PostgreSQL) and structured backends (Node.js/Django).</p>
         </div>
       </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="pillar-card glass-card p-4 h-100">
+          <div class="pillar-icon-box"><i class="fas fa-users-gear"></i></div>
+          <h4 class="pillar-title">Leadership</h4>
+          <p class="pillar-text">Serving as President of GeeksforGeeks Chapter, managing event approvals, community workshops, and coordinating cross-functional team projects.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="pillar-card glass-card p-4 h-100">
+          <div class="pillar-icon-box"><i class="fas fa-comments"></i></div>
+          <h4 class="pillar-title">Technical Communication</h4>
+          <p class="pillar-text">Bilingual speaker (English, Tamil, Kannada, Hindi, and Japanese O Grade) presenting complex programming concepts to campus audiences.</p>
+        </div>
+      </div>
+    </div>
 
+    <!-- Part 2: Interactive Skills Explorer -->
+    <div class="skills-explorer-wrapper fade-up mt-5">
+      <div class="row">
+        <div class="col-12">
+          <h3 class="skills-subtitle mb-4 text-center text-md-start">
+            <i class="fas fa-folder-open text-pink me-2"></i> Skills Explorer & Evidence
+          </h3>
+        </div>
+      </div>
       
-      <div class="col-12 fade-up">
-        <div class="project-card featured p-4">
-          <span class="project-featured-tag mb-2 d-inline-block">✦ Core Focus</span>
-          <h3>Data Structures & Algorithms</h3>
-          <p class="text-pink tag-line">Proven Problem Solver</p>
-          <p class="text-light mb-2">Experienced in analyzing complex runtime parameters and constraints. Solved <strong>500+ programming problems</strong> covering Arrays, Hashing, Recursion, Backtracking, and Dynamic Programming.</p>
-          <div class="mt-3 d-flex gap-2 flex-wrap">
-            <a href="https://codolio.com/profile/literally.sindhu" target="_blank" class="btn btn-pink btn-sm d-inline-flex align-items-center gap-1"><i class="fas fa-code"></i> View Codolio Profile</a>
-            <button class="btn btn-outline-pink btn-sm d-inline-flex align-items-center gap-1" data-bs-toggle="modal" data-bs-target="#certModal" onclick="document.getElementById('modalCertImage').src='profileCard.png'; document.getElementById('certModalLabel').textContent='Codolio Profile Card';">
-              <i class="fas fa-id-card"></i> View Codolio Card
-            </button>
+      <!-- DESKTOP EXPLORER -->
+      <div class="skills-desktop-dashboard d-none d-lg-flex glass-card p-4">
+        <!-- Left Categories Sidebar -->
+        <div class="skills-nav-sidebar">
+          <button class="skills-nav-item active" data-category="languages">
+            <i class="fas fa-code"></i> Programming Languages
+          </button>
+          <button class="skills-nav-item" data-category="frontend">
+            <i class="fas fa-desktop"></i> Frontend Development
+          </button>
+          <button class="skills-nav-item" data-category="backend">
+            <i class="fas fa-server"></i> Backend Development
+          </button>
+          <button class="skills-nav-item" data-category="databases">
+            <i class="fas fa-database"></i> Databases
+          </button>
+          <button class="skills-nav-item" data-category="ai-ml">
+            <i class="fas fa-robot"></i> AI / Machine Learning
+          </button>
+          <button class="skills-nav-item" data-category="design">
+            <i class="fas fa-palette"></i> UI/UX & Design
+          </button>
+          <button class="skills-nav-item" data-category="tools">
+            <i class="fas fa-tools"></i> Developer Tools
+          </button>
+          <button class="skills-nav-item" data-category="collab">
+            <i class="fas fa-network-wired"></i> Version Control & Collab
+          </button>
+          <button class="skills-nav-item" data-category="game">
+            <i class="fas fa-gamepad"></i> Game Development
+          </button>
+          <button class="skills-nav-item" data-category="cp">
+            <i class="fas fa-trophy"></i> Competitive Programming
+          </button>
+        </div>
+
+        <!-- Right Content Panels -->
+        <div class="skills-content-panel">
+          <!-- Panel 1: Languages -->
+          <div class="skills-panel active" id="panel-languages">
+            <div class="panel-header">
+              <h4>Programming Languages</h4>
+              <p>Core development syntax, types, and logic structures applied across computational challenges and web app codebases.</p>
+            </div>
+            <div class="skills-list-grid">
+              <div class="skill-detail-item">
+                <div class="skill-meta">
+                  <span class="skill-name-txt"><i class="fab fa-python text-primary"></i> Python</span>
+                  <span class="skill-evidence-tag">Care for Pet, Quiz Game</span>
+                </div>
+                <p class="skill-desc-txt">Object-oriented programming, game development loop mechanics, and dynamic scoring scripts.</p>
+              </div>
+              <div class="skill-detail-item">
+                <div class="skill-meta">
+                  <span class="skill-name-txt"><i class="fas fa-terminal text-info"></i> C++</span>
+                  <span class="skill-evidence-tag">500+ solved problems</span>
+                </div>
+                <p class="skill-desc-txt">Primary language for competitive programming, algorithm optimization, and complex structural logic.</p>
+              </div>
+              <div class="skill-detail-item">
+                <div class="skill-meta">
+                  <span class="skill-name-txt"><i class="fab fa-js text-warning"></i> JavaScript</span>
+                  <span class="skill-evidence-tag">DuelCom, Portfolios</span>
+                </div>
+                <p class="skill-desc-txt">Client state flows, dynamic DOM updates, asynchronous API calls, and custom animations.</p>
+              </div>
+              <div class="skill-detail-item">
+                <div class="skill-meta">
+                  <span class="skill-name-txt"><i class="fab fa-js text-primary"></i> TypeScript</span>
+                  <span class="skill-evidence-tag">Questoria</span>
+                </div>
+                <p class="skill-desc-txt">Ensured sound architecture using static types for quest pathways and state managers in React.</p>
+              </div>
+              <div class="skill-detail-item">
+                <div class="skill-meta">
+                  <span class="skill-name-txt"><i class="fas fa-terminal text-secondary"></i> C</span>
+                  <span class="skill-evidence-tag">Academic Coursework</span>
+                </div>
+                <p class="skill-desc-txt">Low-level pointer mechanics, custom data structures, memory limits, and logic constraints.</p>
+              </div>
+              <div class="skill-detail-item">
+                <div class="skill-meta">
+                  <span class="skill-name-txt"><i class="fab fa-java text-danger"></i> Java (Basic)</span>
+                  <span class="skill-evidence-tag">Academic Coursework</span>
+                </div>
+                <p class="skill-desc-txt">Object-oriented programming principles, interface structures, and abstraction layers.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Panel 2: Frontend -->
+          <div class="skills-panel" id="panel-frontend">
+            <div class="panel-header">
+              <h4>Frontend Development</h4>
+              <p>Crafting responsive, performant, and visual interfaces using state management and modular component libraries.</p>
+            </div>
+            <div class="skills-list-grid">
+              <div class="skill-detail-item">
+                <div class="skill-meta">
+                  <span class="skill-name-txt"><i class="fab fa-react text-info"></i> React.js</span>
+                  <span class="skill-evidence-tag">DuelCom, Questoria</span>
+                </div>
+                <p class="skill-desc-txt">React 19, functional component architecture, custom state hooks, and high-performance routing.</p>
+              </div>
+              <div class="skill-detail-item">
+                <div class="skill-meta">
+                  <span class="skill-name-txt"><i class="fab fa-js text-primary"></i> TypeScript</span>
+                  <span class="skill-evidence-tag">Questoria RPG</span>
+                </div>
+                <p class="skill-desc-txt">Typed UI component structures, rigid interfaces, and bulletproof client-side game contracts.</p>
+              </div>
+              <div class="skill-detail-item">
+                <div class="skill-meta">
+                  <span class="skill-name-txt"><i class="fab fa-css3-alt text-primary"></i> CSS Modules</span>
+                  <span class="skill-evidence-tag">Questoria</span>
+                </div>
+                <p class="skill-desc-txt">Engineered scoped CSS classes to isolate game UI layouts and prevent global stylesheet conflicts.</p>
+              </div>
+              <div class="skill-detail-item">
+                <div class="skill-meta">
+                  <span class="skill-name-txt"><i class="fab fa-bootstrap text-purple"></i> Bootstrap</span>
+                  <span class="skill-evidence-tag">Portfolio Layout</span>
+                </div>
+                <p class="skill-desc-txt">Utilized grid systems, collapsing navbars, and interactive modals for clean interface scaling.</p>
+              </div>
+              <div class="skill-detail-item">
+                <div class="skill-meta">
+                  <span class="skill-name-txt"><i class="fas fa-volume-high text-info"></i> Web Audio API</span>
+                  <span class="skill-evidence-tag">Questoria Sounds</span>
+                </div>
+                <p class="skill-desc-txt">Synthesized vintage 8-bit game sound effects and narrative chiptunes procedurally inside the browser.</p>
+              </div>
+              <div class="skill-detail-item">
+                <div class="skill-meta">
+                  <span class="skill-name-txt"><i class="fab fa-html5 text-danger"></i> HTML5 & CSS3</span>
+                  <span class="skill-evidence-tag">All Web Projects</span>
+                </div>
+                <p class="skill-desc-txt">Semantic elements structure, responsive Flexbox/Grids, customized variables, and keyframe animations.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Panel 3: Backend -->
+          <div class="skills-panel" id="panel-backend">
+            <div class="panel-header">
+              <h4>Backend Development</h4>
+              <p>Designing backend APIs, routing servers, authentication controllers, and MVC structures.</p>
+            </div>
+            <div class="skills-list-grid">
+              <div class="skill-detail-item">
+                <div class="skill-meta">
+                  <span class="skill-name-txt"><i class="fab fa-node-js text-success"></i> Node.js</span>
+                  <span class="skill-evidence-tag">DuelCom Server</span>
+                </div>
+                <p class="skill-desc-txt">Created server architectures, handling web request queues and dynamic client handshakes.</p>
+              </div>
+              <div class="skill-detail-item">
+                <div class="skill-meta">
+                  <span class="skill-name-txt"><i class="fas fa-gears text-muted"></i> Express</span>
+                  <span class="skill-evidence-tag">DuelCom Rest API</span>
+                </div>
+                <p class="skill-desc-txt">Configured API routes, request routers, custom controllers, and CORS handling.</p>
+              </div>
+              <div class="skill-detail-item">
+                <div class="skill-meta">
+                  <span class="skill-name-txt"><i class="fas fa-fire-alt text-danger"></i> Django</span>
+                  <span class="skill-evidence-tag">Django Projects</span>
+                </div>
+                <p class="skill-desc-txt">Utilized MTV patterns, custom admin panels, migrations, secure middleware systems, and backend models.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Panel 4: Databases -->
+          <div class="skills-panel" id="panel-databases">
+            <div class="panel-header">
+              <h4>Databases & Storage</h4>
+              <p>Structuring relational databases, writing queries, and designing real-time database sync flows.</p>
+            </div>
+            <div class="skills-list-grid">
+              <div class="skill-detail-item">
+                <div class="skill-meta">
+                  <span class="skill-name-txt"><i class="fas fa-fire text-warning"></i> Firebase Realtime DB</span>
+                  <span class="skill-evidence-tag">DuelCom match sync</span>
+                </div>
+                <p class="skill-desc-txt">Synchronized coding duel states, player match lists, timers, and lobby queues instantly.</p>
+              </div>
+              <div class="skill-detail-item">
+                <div class="skill-meta">
+                  <span class="skill-name-txt"><i class="fas fa-database text-info"></i> SQL / PostgreSQL</span>
+                  <span class="skill-evidence-tag">DBMS Course, NPTEL</span>
+                </div>
+                <p class="skill-desc-txt">Advanced database design, relational algebra, SQL constraints, index tuning, and normalization theory.</p>
+              </div>
+              <div class="skill-detail-item">
+                <div class="skill-meta">
+                  <span class="skill-name-txt"><i class="fas fa-key text-pink"></i> Firebase Auth</span>
+                  <span class="skill-evidence-tag">DuelCom User Auth</span>
+                </div>
+                <p class="skill-desc-txt">Implemented secure credentials caching, social authentication tokens, and user logs.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Panel 5: AI-ML -->
+          <div class="skills-panel" id="panel-ai-ml">
+            <div class="panel-header">
+              <h4>AI / Machine Learning</h4>
+              <p>Integrating generative model endpoints and using intelligence pipelines to augment applications.</p>
+            </div>
+            <div class="skills-list-grid">
+              <div class="skill-detail-item">
+                <div class="skill-meta">
+                  <span class="skill-name-txt"><i class="fas fa-brain text-warning"></i> Generative AI API</span>
+                  <span class="skill-evidence-tag">DuelCom Challenge Gen</span>
+                </div>
+                <p class="skill-desc-txt">Programmed model prompts to generate structural code challenges, parsing JSON responses securely.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Panel 6: Design -->
+          <div class="skills-panel" id="panel-design">
+            <div class="panel-header">
+              <h4>UI/UX & Graphic Design</h4>
+              <p>Creating design foundations, digital brand guidelines, high-fidelity prototypes, and media promotions.</p>
+            </div>
+            <div class="skills-list-grid">
+              <div class="skill-detail-item">
+                <div class="skill-meta">
+                  <span class="skill-name-txt"><i class="fab fa-figma text-danger"></i> Figma</span>
+                  <span class="skill-evidence-tag">DuelCom & Questoria UI</span>
+                </div>
+                <p class="skill-desc-txt">Designed components, layouts, typography sizes, interactive mockups, and auto-layouts.</p>
+              </div>
+              <div class="skill-detail-item">
+                <div class="skill-meta">
+                  <span class="skill-name-txt"><i class="fas fa-palette text-primary"></i> Graphic Design</span>
+                  <span class="skill-evidence-tag">Literary Club SRM RMP</span>
+                </div>
+                <p class="skill-desc-txt">Designed promotional print/digital campus event banners, graphics, and social content.</p>
+              </div>
+              <div class="skill-detail-item">
+                <div class="skill-meta">
+                  <span class="skill-name-txt"><i class="fas fa-video text-warning"></i> Video Editing</span>
+                  <span class="skill-evidence-tag">CampusLife Content Team</span>
+                </div>
+                <p class="skill-desc-txt">Cut, transitions, and audio sync for student engagement promotional assets.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Panel 7: Tools -->
+          <div class="skills-panel" id="panel-tools">
+            <div class="panel-header">
+              <h4>Developer Tools</h4>
+              <p>Configuring build environments, task managers, and package dependency trees.</p>
+            </div>
+            <div class="skills-list-grid">
+              <div class="skill-detail-item">
+                <div class="skill-meta">
+                  <span class="skill-name-txt"><i class="fas fa-bolt text-warning"></i> Vite</span>
+                  <span class="skill-evidence-tag">Questoria Bundler</span>
+                </div>
+                <p class="skill-desc-txt">Setup fast Hot Module Replacement, modular paths configurations, and optimized production builds.</p>
+              </div>
+              <div class="skill-detail-item">
+                <div class="skill-meta">
+                  <span class="skill-name-txt"><i class="fas fa-terminal text-info"></i> npm</span>
+                  <span class="skill-evidence-tag">React Projects</span>
+                </div>
+                <p class="skill-desc-txt">Dependency updates control, security audit reviews, packages lock-ins, and script commands.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Panel 8: Collab -->
+          <div class="skills-panel" id="panel-collab">
+            <div class="panel-header">
+              <h4>Version Control & Collaboration</h4>
+              <p>Coordinating changes inside teams, version audits, and managing developer student communities.</p>
+            </div>
+            <div class="skills-list-grid">
+              <div class="skill-detail-item">
+                <div class="skill-meta">
+                  <span class="skill-name-txt"><i class="fab fa-git-alt text-danger"></i> Git</span>
+                  <span class="skill-evidence-tag">Version control in all repos</span>
+                </div>
+                <p class="skill-desc-txt">Commit logging, custom local branch divisions, staging code, and merging resolutions.</p>
+              </div>
+              <div class="skill-detail-item">
+                <div class="skill-meta">
+                  <span class="skill-name-txt"><i class="fab fa-github"></i> GitHub</span>
+                  <span class="skill-evidence-tag">Repository Hosting</span>
+                </div>
+                <p class="skill-desc-txt">Code storage, issue boards tracking, webhooks integration, and auto Vercel hosting connections.</p>
+              </div>
+              <div class="skill-detail-item">
+                <div class="skill-meta">
+                  <span class="skill-name-txt"><i class="fas fa-crown text-warning"></i> Chapter Leadership</span>
+                  <span class="skill-evidence-tag">GFG Chapter President</span>
+                </div>
+                <p class="skill-desc-txt">Managing event logistics, student approvals, and technical programming events directly with admin bodies.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Panel 9: Game Dev -->
+          <div class="skills-panel" id="panel-game">
+            <div class="panel-header">
+              <h4>Game Development</h4>
+              <p>Designing interactive 2D gameplay structures, loop ticks, sprite controllers, and procedural audio effects.</p>
+            </div>
+            <div class="skills-list-grid">
+              <div class="skill-detail-item">
+                <div class="skill-meta">
+                  <span class="skill-name-txt"><i class="fas fa-gamepad text-success"></i> Pygame</span>
+                  <span class="skill-evidence-tag">Care for Pet</span>
+                </div>
+                <p class="skill-desc-txt">Formulated event listener arrays, custom sprite vectors, object collision matrices, and local sound cues.</p>
+              </div>
+              <div class="skill-detail-item">
+                <div class="skill-meta">
+                  <span class="skill-name-txt"><i class="fas fa-music text-purple"></i> Web Audio API</span>
+                  <span class="skill-evidence-tag">Questoria Sounds</span>
+                </div>
+                <p class="skill-desc-txt">Generated retro chiptunes, typewriting background frequencies, and retro level music procedurally on play.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Panel 10: CP -->
+          <div class="skills-panel" id="panel-cp">
+            <div class="panel-header">
+              <h4>Competitive Programming</h4>
+              <p>Solving complex data and constraint problems in runtime-pressured coding environments.</p>
+            </div>
+            <div class="skills-list-grid">
+              <div class="skill-detail-item">
+                <div class="skill-meta">
+                  <span class="skill-name-txt"><i class="fas fa-cubes text-info"></i> DSA Analysis</span>
+                  <span class="skill-evidence-tag">500+ problems solved</span>
+                </div>
+                <p class="skill-desc-txt">Deeply practiced in arrays, sorting queues, hashing maps, recursive backtracking, and dynamic choice structures.</p>
+              </div>
+              <div class="skill-detail-item">
+                <div class="skill-meta">
+                  <span class="skill-name-txt"><i class="fas fa-star text-warning"></i> CodeChef 1200+</span>
+                  <span class="skill-evidence-tag">40+ programming contests</span>
+                </div>
+                <p class="skill-desc-txt">Solved algorithmic problems under high constraints. Earned contest badges and dynamic ratings.</p>
+              </div>
+              <div class="skill-detail-item">
+                <div class="skill-meta">
+                  <span class="skill-name-txt"><i class="fas fa-fire text-danger"></i> LeetCode Consistency</span>
+                  <span class="skill-evidence-tag">50+ day practices streak</span>
+                </div>
+                <p class="skill-desc-txt">Regular practice of classic DSA patterns like sliding window, two pointer sweeps, and tree crawls.</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
+      
+      <!-- MOBILE ACCORDION -->
+      <div class="skills-mobile-accordion d-lg-none">
+        <!-- Acc 1: Languages -->
+        <div class="accordion-card glass-card mb-3">
+          <button class="accordion-card-trigger" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-languages" aria-expanded="true">
+            <span><i class="fas fa-code"></i> Programming Languages</span>
+            <i class="fas fa-chevron-down arrow-icon"></i>
+          </button>
+          <div id="collapse-languages" class="collapse show" data-bs-parent=".skills-mobile-accordion">
+            <div class="accordion-card-body">
+              <div class="skills-list-grid">
+                <div class="skill-detail-item">
+                  <div class="skill-meta flex-column align-items-start">
+                    <span class="skill-name-txt"><i class="fab fa-python text-primary"></i> Python</span>
+                    <span class="skill-evidence-tag mt-1">Care for Pet, Quiz Game</span>
+                  </div>
+                  <p class="skill-desc-txt mt-2">Object-oriented programming, game development loop mechanics, and dynamic scoring scripts.</p>
+                </div>
+                <div class="skill-detail-item">
+                  <div class="skill-meta flex-column align-items-start">
+                    <span class="skill-name-txt"><i class="fas fa-terminal text-info"></i> C++</span>
+                    <span class="skill-evidence-tag mt-1">500+ solved problems</span>
+                  </div>
+                  <p class="skill-desc-txt mt-2">Primary language for competitive programming, algorithm optimization, and complex structural logic.</p>
+                </div>
+                <div class="skill-detail-item">
+                  <div class="skill-meta flex-column align-items-start">
+                    <span class="skill-name-txt"><i class="fab fa-js text-warning"></i> JavaScript</span>
+                    <span class="skill-evidence-tag mt-1">DuelCom, Portfolios</span>
+                  </div>
+                  <p class="skill-desc-txt mt-2">Client state flows, dynamic DOM updates, asynchronous API calls, and custom animations.</p>
+                </div>
+                <div class="skill-detail-item">
+                  <div class="skill-meta flex-column align-items-start">
+                    <span class="skill-name-txt"><i class="fab fa-js text-primary"></i> TypeScript</span>
+                    <span class="skill-evidence-tag mt-1">Questoria</span>
+                  </div>
+                  <p class="skill-desc-txt mt-2">Ensured sound architecture using static types for quest pathways and state managers in React.</p>
+                </div>
+                <div class="skill-detail-item">
+                  <div class="skill-meta flex-column align-items-start">
+                    <span class="skill-name-txt"><i class="fas fa-terminal text-secondary"></i> C</span>
+                    <span class="skill-evidence-tag mt-1">Academic Coursework</span>
+                  </div>
+                  <p class="skill-desc-txt mt-2">Low-level pointer mechanics, custom data structures, memory limits, and logic constraints.</p>
+                </div>
+                <div class="skill-detail-item">
+                  <div class="skill-meta flex-column align-items-start">
+                    <span class="skill-name-txt"><i class="fab fa-java text-danger"></i> Java (Basic)</span>
+                    <span class="skill-evidence-tag mt-1">Academic Coursework</span>
+                  </div>
+                  <p class="skill-desc-txt mt-2">Object-oriented programming principles, interface structures, and abstraction layers.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
+        <!-- Acc 2: Frontend -->
+        <div class="accordion-card glass-card mb-3">
+          <button class="accordion-card-trigger collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-frontend" aria-expanded="false">
+            <span><i class="fas fa-desktop"></i> Frontend Development</span>
+            <i class="fas fa-chevron-down arrow-icon"></i>
+          </button>
+          <div id="collapse-frontend" class="collapse" data-bs-parent=".skills-mobile-accordion">
+            <div class="accordion-card-body">
+              <div class="skills-list-grid">
+                <div class="skill-detail-item">
+                  <div class="skill-meta flex-column align-items-start">
+                    <span class="skill-name-txt"><i class="fab fa-react text-info"></i> React.js</span>
+                    <span class="skill-evidence-tag mt-1">DuelCom, Questoria</span>
+                  </div>
+                  <p class="skill-desc-txt mt-2">React 19, functional component architecture, custom state hooks, and high-performance routing.</p>
+                </div>
+                <div class="skill-detail-item">
+                  <div class="skill-meta flex-column align-items-start">
+                    <span class="skill-name-txt"><i class="fab fa-js text-primary"></i> TypeScript</span>
+                    <span class="skill-evidence-tag mt-1">Questoria RPG</span>
+                  </div>
+                  <p class="skill-desc-txt mt-2">Typed UI component structures, rigid interfaces, and bulletproof client-side game contracts.</p>
+                </div>
+                <div class="skill-detail-item">
+                  <div class="skill-meta flex-column align-items-start">
+                    <span class="skill-name-txt"><i class="fab fa-css3-alt text-primary"></i> CSS Modules</span>
+                    <span class="skill-evidence-tag mt-1">Questoria</span>
+                  </div>
+                  <p class="skill-desc-txt mt-2">Engineered scoped CSS classes to isolate game UI layouts and prevent global stylesheet conflicts.</p>
+                </div>
+                <div class="skill-detail-item">
+                  <div class="skill-meta flex-column align-items-start">
+                    <span class="skill-name-txt"><i class="fab fa-bootstrap text-purple"></i> Bootstrap</span>
+                    <span class="skill-evidence-tag mt-1">Portfolio Layout</span>
+                  </div>
+                  <p class="skill-desc-txt mt-2">Utilized grid systems, collapsing navbars, and interactive modals for clean interface scaling.</p>
+                </div>
+                <div class="skill-detail-item">
+                  <div class="skill-meta flex-column align-items-start">
+                    <span class="skill-name-txt"><i class="fas fa-volume-high text-info"></i> Web Audio API</span>
+                    <span class="skill-evidence-tag mt-1">Questoria Sounds</span>
+                  </div>
+                  <p class="skill-desc-txt mt-2">Synthesized vintage 8-bit game sound effects and narrative chiptunes procedurally inside the browser.</p>
+                </div>
+                <div class="skill-detail-item">
+                  <div class="skill-meta flex-column align-items-start">
+                    <span class="skill-name-txt"><i class="fab fa-html5 text-danger"></i> HTML5 & CSS3</span>
+                    <span class="skill-evidence-tag mt-1">All Web Projects</span>
+                  </div>
+                  <p class="skill-desc-txt mt-2">Semantic elements structure, responsive Flexbox/Grids, customized variables, and keyframe animations.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Acc 3: Backend -->
+        <div class="accordion-card glass-card mb-3">
+          <button class="accordion-card-trigger collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-backend" aria-expanded="false">
+            <span><i class="fas fa-server"></i> Backend Development</span>
+            <i class="fas fa-chevron-down arrow-icon"></i>
+          </button>
+          <div id="collapse-backend" class="collapse" data-bs-parent=".skills-mobile-accordion">
+            <div class="accordion-card-body">
+              <div class="skills-list-grid">
+                <div class="skill-detail-item">
+                  <div class="skill-meta flex-column align-items-start">
+                    <span class="skill-name-txt"><i class="fab fa-node-js text-success"></i> Node.js</span>
+                    <span class="skill-evidence-tag mt-1">DuelCom Server</span>
+                  </div>
+                  <p class="skill-desc-txt mt-2">Created server architectures, handling web request queues and dynamic client handshakes.</p>
+                </div>
+                <div class="skill-detail-item">
+                  <div class="skill-meta flex-column align-items-start">
+                    <span class="skill-name-txt"><i class="fas fa-gears text-muted"></i> Express</span>
+                    <span class="skill-evidence-tag mt-1">DuelCom Rest API</span>
+                  </div>
+                  <p class="skill-desc-txt mt-2">Configured API routes, request routers, custom controllers, and CORS handling.</p>
+                </div>
+                <div class="skill-detail-item">
+                  <div class="skill-meta flex-column align-items-start">
+                    <span class="skill-name-txt"><i class="fas fa-fire-alt text-danger"></i> Django</span>
+                    <span class="skill-evidence-tag mt-1">Django Projects</span>
+                  </div>
+                  <p class="skill-desc-txt mt-2">Utilized MTV patterns, custom admin panels, migrations, secure middleware systems, and backend models.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Acc 4: Databases -->
+        <div class="accordion-card glass-card mb-3">
+          <button class="accordion-card-trigger collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-databases" aria-expanded="false">
+            <span><i class="fas fa-database"></i> Databases</span>
+            <i class="fas fa-chevron-down arrow-icon"></i>
+          </button>
+          <div id="collapse-databases" class="collapse" data-bs-parent=".skills-mobile-accordion">
+            <div class="accordion-card-body">
+              <div class="skills-list-grid">
+                <div class="skill-detail-item">
+                  <div class="skill-meta flex-column align-items-start">
+                    <span class="skill-name-txt"><i class="fas fa-fire text-warning"></i> Firebase Realtime DB</span>
+                    <span class="skill-evidence-tag mt-1">DuelCom match sync</span>
+                  </div>
+                  <p class="skill-desc-txt mt-2">Synchronized coding duel states, player match lists, timers, and lobby queues instantly.</p>
+                </div>
+                <div class="skill-detail-item">
+                  <div class="skill-meta flex-column align-items-start">
+                    <span class="skill-name-txt"><i class="fas fa-database text-info"></i> SQL / PostgreSQL</span>
+                    <span class="skill-evidence-tag mt-1">DBMS Course, NPTEL</span>
+                  </div>
+                  <p class="skill-desc-txt mt-2">Advanced database design, relational algebra, SQL constraints, index tuning, and normalization theory.</p>
+                </div>
+                <div class="skill-detail-item">
+                  <div class="skill-meta flex-column align-items-start">
+                    <span class="skill-name-txt"><i class="fas fa-key text-pink"></i> Firebase Auth</span>
+                    <span class="skill-evidence-tag mt-1">DuelCom User Auth</span>
+                  </div>
+                  <p class="skill-desc-txt mt-2">Implemented secure credentials caching, social authentication tokens, and user logs.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Acc 5: AI-ML -->
+        <div class="accordion-card glass-card mb-3">
+          <button class="accordion-card-trigger collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-ai-ml" aria-expanded="false">
+            <span><i class="fas fa-robot"></i> AI / Machine Learning</span>
+            <i class="fas fa-chevron-down arrow-icon"></i>
+          </button>
+          <div id="collapse-ai-ml" class="collapse" data-bs-parent=".skills-mobile-accordion">
+            <div class="accordion-card-body">
+              <div class="skills-list-grid">
+                <div class="skill-detail-item">
+                  <div class="skill-meta flex-column align-items-start">
+                    <span class="skill-name-txt"><i class="fas fa-brain text-warning"></i> Generative AI API</span>
+                    <span class="skill-evidence-tag mt-1">DuelCom Challenge Gen</span>
+                  </div>
+                  <p class="skill-desc-txt mt-2">Programmed model prompts to generate structural code challenges, parsing JSON responses securely.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Acc 6: Design -->
+        <div class="accordion-card glass-card mb-3">
+          <button class="accordion-card-trigger collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-design" aria-expanded="false">
+            <span><i class="fas fa-palette"></i> UI/UX & Design</span>
+            <i class="fas fa-chevron-down arrow-icon"></i>
+          </button>
+          <div id="collapse-design" class="collapse" data-bs-parent=".skills-mobile-accordion">
+            <div class="accordion-card-body">
+              <div class="skills-list-grid">
+                <div class="skill-detail-item">
+                  <div class="skill-meta flex-column align-items-start">
+                    <span class="skill-name-txt"><i class="fab fa-figma text-danger"></i> Figma</span>
+                    <span class="skill-evidence-tag mt-1">DuelCom & Questoria UI</span>
+                  </div>
+                  <p class="skill-desc-txt mt-2">Designed components, layouts, typography sizes, interactive mockups, and auto-layouts.</p>
+                </div>
+                <div class="skill-detail-item">
+                  <div class="skill-meta flex-column align-items-start">
+                    <span class="skill-name-txt"><i class="fas fa-palette text-primary"></i> Graphic Design</span>
+                    <span class="skill-evidence-tag mt-1">Literary Club SRM RMP</span>
+                  </div>
+                  <p class="skill-desc-txt mt-2">Designed promotional print/digital campus event banners, graphics, and social content.</p>
+                </div>
+                <div class="skill-detail-item">
+                  <div class="skill-meta flex-column align-items-start">
+                    <span class="skill-name-txt"><i class="fas fa-video text-warning"></i> Video Editing</span>
+                    <span class="skill-evidence-tag mt-1">CampusLife Content Team</span>
+                  </div>
+                  <p class="skill-desc-txt mt-2">Cut, transitions, and audio sync for student engagement promotional assets.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Acc 7: Tools -->
+        <div class="accordion-card glass-card mb-3">
+          <button class="accordion-card-trigger collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-tools" aria-expanded="false">
+            <span><i class="fas fa-tools"></i> Developer Tools</span>
+            <i class="fas fa-chevron-down arrow-icon"></i>
+          </button>
+          <div id="collapse-tools" class="collapse" data-bs-parent=".skills-mobile-accordion">
+            <div class="accordion-card-body">
+              <div class="skills-list-grid">
+                <div class="skill-detail-item">
+                  <div class="skill-meta flex-column align-items-start">
+                    <span class="skill-name-txt"><i class="fas fa-bolt text-warning"></i> Vite</span>
+                    <span class="skill-evidence-tag mt-1">Questoria Bundler</span>
+                  </div>
+                  <p class="skill-desc-txt mt-2">Setup fast Hot Module Replacement, modular paths configurations, and optimized production builds.</p>
+                </div>
+                <div class="skill-detail-item">
+                  <div class="skill-meta flex-column align-items-start">
+                    <span class="skill-name-txt"><i class="fas fa-terminal text-info"></i> npm</span>
+                    <span class="skill-evidence-tag mt-1">React Projects</span>
+                  </div>
+                  <p class="skill-desc-txt mt-2">Dependency updates control, security audit reviews, packages lock-ins, and script commands.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Acc 8: Collab -->
+        <div class="accordion-card glass-card mb-3">
+          <button class="accordion-card-trigger collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-collab" aria-expanded="false">
+            <span><i class="fas fa-network-wired"></i> Version Control & Collab</span>
+            <i class="fas fa-chevron-down arrow-icon"></i>
+          </button>
+          <div id="collapse-collab" class="collapse" data-bs-parent=".skills-mobile-accordion">
+            <div class="accordion-card-body">
+              <div class="skills-list-grid">
+                <div class="skill-detail-item">
+                  <div class="skill-meta flex-column align-items-start">
+                    <span class="skill-name-txt"><i class="fab fa-git-alt text-danger"></i> Git</span>
+                    <span class="skill-evidence-tag mt-1">Version control in all repos</span>
+                  </div>
+                  <p class="skill-desc-txt mt-2">Commit logging, custom local branch divisions, staging code, and merging resolutions.</p>
+                </div>
+                <div class="skill-detail-item">
+                  <div class="skill-meta flex-column align-items-start">
+                    <span class="skill-name-txt"><i class="fab fa-github"></i> GitHub</span>
+                    <span class="skill-evidence-tag mt-1">Repository Hosting</span>
+                  </div>
+                  <p class="skill-desc-txt mt-2">Code storage, issue boards tracking, webhooks integration, and auto Vercel hosting connections.</p>
+                </div>
+                <div class="skill-detail-item">
+                  <div class="skill-meta flex-column align-items-start">
+                    <span class="skill-name-txt"><i class="fas fa-crown text-warning"></i> Chapter Leadership</span>
+                    <span class="skill-evidence-tag mt-1">GFG Chapter President</span>
+                  </div>
+                  <p class="skill-desc-txt mt-2">Managing event logistics, student approvals, and technical programming events directly with admin bodies.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Acc 9: Game Dev -->
+        <div class="accordion-card glass-card mb-3">
+          <button class="accordion-card-trigger collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-game" aria-expanded="false">
+            <span><i class="fas fa-gamepad"></i> Game Development</span>
+            <i class="fas fa-chevron-down arrow-icon"></i>
+          </button>
+          <div id="collapse-game" class="collapse" data-bs-parent=".skills-mobile-accordion">
+            <div class="accordion-card-body">
+              <div class="skills-list-grid">
+                <div class="skill-detail-item">
+                  <div class="skill-meta flex-column align-items-start">
+                    <span class="skill-name-txt"><i class="fas fa-gamepad text-success"></i> Pygame</span>
+                    <span class="skill-evidence-tag mt-1">Care for Pet</span>
+                  </div>
+                  <p class="skill-desc-txt mt-2">Formulated event listener arrays, custom sprite vectors, object collision matrices, and local sound cues.</p>
+                </div>
+                <div class="skill-detail-item">
+                  <div class="skill-meta flex-column align-items-start">
+                    <span class="skill-name-txt"><i class="fas fa-music text-purple"></i> Web Audio API</span>
+                    <span class="skill-evidence-tag mt-1">Questoria Sounds</span>
+                  </div>
+                  <p class="skill-desc-txt mt-2">Generated retro chiptunes, typewriting background frequencies, and retro level music procedurally on play.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Acc 10: CP -->
+        <div class="accordion-card glass-card mb-3">
+          <button class="accordion-card-trigger collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-cp" aria-expanded="false">
+            <span><i class="fas fa-trophy"></i> Competitive Programming</span>
+            <i class="fas fa-chevron-down arrow-icon"></i>
+          </button>
+          <div id="collapse-cp" class="collapse" data-bs-parent=".skills-mobile-accordion">
+            <div class="accordion-card-body">
+              <div class="skills-list-grid">
+                <div class="skill-detail-item">
+                  <div class="skill-meta flex-column align-items-start">
+                    <span class="skill-name-txt"><i class="fas fa-cubes text-info"></i> DSA Analysis</span>
+                    <span class="skill-evidence-tag mt-1">500+ problems solved</span>
+                  </div>
+                  <p class="skill-desc-txt mt-2">Deeply practiced in arrays, sorting queues, hashing maps, recursive backtracking, and dynamic choice structures.</p>
+                </div>
+                <div class="skill-detail-item">
+                  <div class="skill-meta flex-column align-items-start">
+                    <span class="skill-name-txt"><i class="fas fa-star text-warning"></i> CodeChef 1200+</span>
+                    <span class="skill-evidence-tag mt-1">40+ programming contests</span>
+                  </div>
+                  <p class="skill-desc-txt mt-2">Solved algorithmic problems under high constraints. Earned contest badges and dynamic ratings.</p>
+                </div>
+                <div class="skill-detail-item">
+                  <div class="skill-meta flex-column align-items-start">
+                    <span class="skill-name-txt"><i class="fas fa-fire text-danger"></i> LeetCode Consistency</span>
+                    <span class="skill-evidence-tag mt-1">50+ day practices streak</span>
+                  </div>
+                  <p class="skill-desc-txt mt-2">Regular practice of classic DSA patterns like sliding window, two pointer sweeps, and tree crawls.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
